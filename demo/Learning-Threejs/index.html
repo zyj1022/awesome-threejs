@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>learn Three.js</title>
+		<meta name="description" content="基于webGL封装框架three.js开源框架搭建的学习框架。" />
+
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script>document.documentElement.className = 'js';</script>
+	</head>
+	<body>
+		<svg class="hidden">
+			<defs>
+				<symbol id="icon-arrow" viewBox="0 0 24 24">
+					<title>arrow</title>
+					<polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "/>
+				</symbol>
+				<symbol id="icon-drop" viewBox="0 0 24 24">
+					<title>drop</title>
+					<path d="M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z"/><path d="M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z"/>
+				</symbol>
+				<symbol id="icon-github" viewBox="0 0 32.58 31.77">
+					<title>github</title>
+					<path d="M16.29,0a16.29,16.29,0,0,0-5.15,31.75c.81.15,1.11-.35,1.11-.79s0-1.41,0-2.77C7.7,29.18,6.74,26,6.74,26a4.31,4.31,0,0,0-1.81-2.38c-1.48-1,.11-1,.11-1a3.42,3.42,0,0,1,2.5,1.68,3.47,3.47,0,0,0,4.74,1.35,3.48,3.48,0,0,1,1-2.18C9.7,23.08,5.9,21.68,5.9,15.44a6.3,6.3,0,0,1,1.68-4.37,5.86,5.86,0,0,1,.16-4.31s1.37-.44,4.48,1.67a15.44,15.44,0,0,1,8.16,0c3.11-2.11,4.48-1.67,4.48-1.67A5.85,5.85,0,0,1,25,11.07a6.29,6.29,0,0,1,1.67,4.37c0,6.26-3.81,7.63-7.44,8a3.89,3.89,0,0,1,1.11,3c0,2.18,0,3.93,0,4.47s.29.94,1.12.78A16.29,16.29,0,0,0,16.29,0Z"/>
+				</symbol>
+			</defs>
+		</svg>
+		<main>
+			<header class="codrops-header">
+				<nav class="codrops-demos">
+					<a class="link" href="http://www.skyliu.top" target="view_window">首页</a>
+					<a class="link" href="https://github.com/tianlong8023/three.js-demo" target="view_window">gitHub</a>
+					<a class="link" href="https://gitee.com/skyliu625/three.js-demo" target="view_window">码云</a>
+					<a class="current-demo link" href="javascript:;">learn Three.js开发指南</a>
+				</nav>
+			</header>
+			<div class="calendar-wrap">
+				<div class="calendar">
+					<div class="cube" data-bg-color="#F7E8ED" data-title="第一章"></div>
+					<div class="cube" data-bg-color="#F2D9E6" data-title="第二章"></div>
+					<div class="cube" data-bg-color="#ECC6DE" data-title="第三章"></div>
+					<div class="cube" data-bg-color="#E0ECF5" data-title="第四章"></div>
+					<div class="cube" data-bg-color="#DDF4DE" data-title="第五章"></div>
+					<div class="cube" data-bg-color="#F0F1D5" data-title="第六章"></div>
+					<div class="cube" data-bg-color="#EEDECD" data-title="第七章"></div>
+					<div class="cube" data-bg-color="#B8E6B3" data-title="第八章"></div>
+					<div class="cube" data-bg-color="#ABE3D8" data-title="第九章"></div>
+					<div class="cube" data-bg-color="#E0E1F5" data-title="第十章"></div>
+					<div class="cube" data-bg-color="#F7E8ED" data-title="第十一章"></div>
+					<div class="cube" data-bg-color="#F2D9E6" data-title="第十二章"></div>
+					<div class="cube" data-bg-color="#DFD1F0" data-title="sky-demo"></div>
+					<div class="cube" data-bg-color="#E0ECF5" data-title="sky-books"></div>
+					<div class="cube" data-inactive data-bg-color="#6161616" data-title="Coming soon"></div>
+					<div class="cube" data-inactive data-bg-color="#6161616" data-title="Coming soon"></div>
+					<div class="cube" data-inactive data-bg-color="#6161616" data-title="Coming soon"></div>
+					<div class="cube" data-inactive data-bg-color="#6161616" data-title="Coming soon"></div>
+				</div>
+				<div class="content">
+					<div class="content__block">
+						<h3 class="content__title">第一章</h3>
+						<p class="content__meta">用Three.js创建你的第一个三维场景</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('01', '01-basic-skeleton');">01-basic-skeleton</a><br/>
+							<a href="javascript:chooseItem('01', '02-first-scene');">02-first-scene</a><br/>
+							<a href="javascript:chooseItem('01', '03-materials-light');">03-materials-light</a><br/>
+							<a href="javascript:chooseItem('01', '04-materials-light-animation');">04-materials-light-animation</a><br/>
+							<a href="javascript:chooseItem('01', '05-control-gui');">05-control-gui</a><br/>
+							<a href="javascript:chooseItem('01', '06-screen-size-change');">06-screen-size-change</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第二章</h3>
+						<p class="content__meta">使用构建Three.js场景的基本组件</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('02', '01-basic-scene');">01-basic-scene</a><br/>
+							<a href="javascript:chooseItem('02', '02-foggy-scene');">02-foggy-scene</a><br/>
+							<a href="javascript:chooseItem('02', '03-forced-materials');">03-forced-materials</a><br/>
+							<a href="javascript:chooseItem('02', '04-geometries');">04-geometries</a><br/>
+							<a href="javascript:chooseItem('02', '05-custom-geometry');">05-custom-geometry</a><br/>
+							<a href="javascript:chooseItem('02', '06-mesh-properties');">06-mesh-properties</a><br/>
+							<a href="javascript:chooseItem('02', '07-both-cameras');">07-both-cameras</a><br/>
+							<a href="javascript:chooseItem('02', '08-cameras-lookat');">08-cameras-lookat</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第三章</h3>
+						<p class="content__meta">使用Three.js里的各种光源</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('03', '01-ambient-light');">01-ambient-light</a><br/>
+							<a href="javascript:chooseItem('03', '02-point-light');">02-point-light</a><br/>
+							<a href="javascript:chooseItem('03', '03-spot-light');">03-spot-light</a><br/>
+							<a href="javascript:chooseItem('03', '04-directional-light');">04-directional-light</a><br/>
+							<a href="javascript:chooseItem('03', '05-hemisphere-light');">05-hemisphere-light</a><br/>
+							<a href="javascript:chooseItem('03', '06-area-light');">06-area-light</a><br/>
+							<a href="javascript:chooseItem('03', '07-lensflares');">07-lensflares</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第四章</h3>
+						<p class="content__meta">使用Three.js的材质</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('04', '01-basic-mesh-material');">01-basic-mesh-material</a><br/>
+							<a href="javascript:chooseItem('04', '02-depth-material');">02-depth-material</a><br/>
+							<a href="javascript:chooseItem('04', '03-combined-material');">03-combined-material</a><br/>
+							<a href="javascript:chooseItem('04', '04-mesh-normal-material');">04-mesh-normal-material</a><br/>
+							<a href="javascript:chooseItem('04', '05-mesh-face-material');">05-mesh-face-material</a><br/>
+							<a href="javascript:chooseItem('04', '06-mesh-lambert-material');">06-mesh-lambert-material</a><br/>
+							<a href="javascript:chooseItem('04', '07-mesh-phong-material');">07-mesh-phong-material</a><br/>
+							<a href="javascript:chooseItem('04', '08-shader-material');">08-shader-material</a><br/>
+							<a href="javascript:chooseItem('04', '09-line-material');">09-line-material</a><br/>
+							<a href="javascript:chooseItem('04', '10-line-material-dashed');">10-line-material-dashed</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第五章</h3>
+						<p class="content__meta">学习使用几何体</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('05', '01-basic-2d-geometries-plane');">01-basic-2d-geometries-plane</a><br/>
+							<a href="javascript:chooseItem('05', '02-basic-2d-geometries-circle');">02-basic-2d-geometries-circle</a><br/>
+							<a href="javascript:chooseItem('05', '03-basic-2d-geometries-shape');">03-basic-2d-geometries-shape</a><br/>
+							<a href="javascript:chooseItem('05', '03-basic-3d-geometries-ring');">03-basic-3d-geometries-ring</a><br/>
+							<a href="javascript:chooseItem('05', '04-basic-3d-geometries-cube');">04-basic-3d-geometries-cube</a><br/>
+							<a href="javascript:chooseItem('05', '05-basic-3d-geometries-sphere');">05-basic-3d-geometries-sphere</a><br/>
+							<a href="javascript:chooseItem('05', '06-basic-3d-geometries-cylinder');">06-basic-3d-geometries-cylinder</a><br/>
+							<a href="javascript:chooseItem('05', '07-basic-3d-geometries-torus');">07-basic-3d-geometries-torus</a><br/>
+							<a href="javascript:chooseItem('05', '08-basic-3d-geometries-ring');">08-basic-3d-geometries-ring</a><br/>
+							<a href="javascript:chooseItem('05', '08-basic-3d-geometries-torus-knot');">08-basic-3d-geometries-torus-knot</a><br/>
+							<a href="javascript:chooseItem('05', '09-basic-3d-geometries-polyhedron');">09-basic-3d-geometries-polyhedron</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第六章</h3>
+						<p class="content__meta">使用高级几何体二元操作</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('06', '01-advanced-3d-geometries-convex');">01-advanced-3d-geometries-convex</a><br/>
+							<a href="javascript:chooseItem('06', '02-advanced-3d-geometries-lathe');">02-advanced-3d-geometries-lathe</a><br/>
+							<a href="javascript:chooseItem('06', '03-extrude-geometry');">03-extrude-geometry</a><br/>
+							<a href="javascript:chooseItem('06', '04-extrude-tube');">04-extrude-tube</a><br/>
+							<a href="javascript:chooseItem('06', '05-extrude-svg');">05-extrude-svg</a><br/>
+							<a href="javascript:chooseItem('06', '06-parametric-geometries');">06-parametric-geometries</a><br/>
+							<a href="javascript:chooseItem('06', '07-text-geometry');">07-text-geometry</a><br/>
+							<a href="javascript:chooseItem('06', '08-binary-operations');">08-binary-operations</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第七章</h3>
+						<p class="content__meta">粒子和粒子系统</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('07', '01-particles');">01-particles</a><br/>
+							<a href="javascript:chooseItem('07', '02-particles-webgl');">02-particles-webgl</a><br/>
+							<a href="javascript:chooseItem('07', '03-basic-point-cloud');">03-basic-point-cloud</a><br/>
+							<a href="javascript:chooseItem('07', '04-program-based-sprites');">04-program-based-sprites</a><br/>
+							<a href="javascript:chooseItem('07', '05a-program-based-point-cloud-webgl');">05a-program-based-point-cloud-webgl</a><br/>
+							<a href="javascript:chooseItem('07', '05b-program-based-sprites-webgl');">05b-program-based-sprites-webgl</a><br/>
+							<a href="javascript:chooseItem('07', '06-rainy-scene');">06-rainy-scene</a><br/>
+							<a href="javascript:chooseItem('07', '07-snowy-scene');">07-snowy-scene</a><br/>
+							<a href="javascript:chooseItem('07', '08-sprites');">08-sprites</a><br/>
+							<a href="javascript:chooseItem('07', '09-sprites-3D');">09-sprites-3D</a><br/>
+							<a href="javascript:chooseItem('07', '10-create-particle-system-from-model');">10-create-particle-system-from-model</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第八章</h3>
+						<p class="content__meta">创建、加载高级网络和几何体</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('08', '01-grouping');">01-grouping</a>
+							<a href="javascript:chooseItem('08', '02-merging');">02-merging</a><br/>
+							<a href="javascript:chooseItem('08', '03-load-save-json-object');">03-load-save-json-object</a>
+							<a href="javascript:chooseItem('08', '04-load-save-json-scene');">04-load-save-json-scene</a><br/>
+							<a href="javascript:chooseItem('08', '05-blender-from-json');">05-blender-from-json</a>
+							<a href="javascript:chooseItem('08', '06-load-obj');">06-load-obj</a><br/>
+							<a href="javascript:chooseItem('08', '07-load-obj-mtl');">07-load-obj-mtl</a>
+							<a href="javascript:chooseItem('08', '08-load-collada');">08-load-collada</a><br/>
+							<a href="javascript:chooseItem('08', '09-load-stl');">09-load-stl</a>
+							<a href="javascript:chooseItem('08', '10-load-ctm');">10-load-ctm</a><br/>
+							<a href="javascript:chooseItem('08', '11-load-vtk');">11-load-vtk</a>
+							<a href="javascript:chooseItem('08', '12-load-pdb');">12-load-pdb</a><br/>
+							<a href="javascript:chooseItem('08', '13-load-PLY');">13-load-PLY</a>
+							<a href="javascript:chooseItem('08', '14-load-awd');">14-load-awd</a><br/>
+							<a href="javascript:chooseItem('08', '15-load-assimp');">15-load-assimp</a>
+							<a href="javascript:chooseItem('08', '16-load-vrml');">16-load-vrml</a><br/>
+							<a href="javascript:chooseItem('08', '17-load-babylon');">17-load-babylon</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第九章</h3>
+						<p class="content__meta">创建动画和移动相机</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('09', '01-basic-animation');">01-basic-animation</a>
+							<a href="javascript:chooseItem('09', '02-selecting-objects');">02-selecting-objects</a><br/>
+							<a href="javascript:chooseItem('09', '03-animation-tween');">03-animation-tween</a>
+							<a href="javascript:chooseItem('09', '04-trackball-controls-camera');">04-trackball-controls-camera</a><br/>
+							<a href="javascript:chooseItem('09', '05-fly-controls-camera');">05-fly-controls-camera</a>
+							<a href="javascript:chooseItem('09', '06-roll-controls-camera');">06-roll-controls-camera</a><br/>
+							<a href="javascript:chooseItem('09', '07-first-person-camera');">07-first-person-camera</a>
+							<a href="javascript:chooseItem('09', '08-controls-orbit');">08-controls-orbit</a><br/>
+							<a href="javascript:chooseItem('09', '10-morph-targets');">10-morph-targets</a>
+							<a href="javascript:chooseItem('09', '11-morph-targets-manually');">11-morph-targets-manually</a><br/>
+							<a href="javascript:chooseItem('09', '12-bones-manually');">12-bones-manually</a>
+							<a href="javascript:chooseItem('09', '13-animation-from-blender');">13-animation-from-blender</a><br/>
+							<a href="javascript:chooseItem('09', '14-animation-from-collada');">14-animation-from-collada</a>
+							<a href="javascript:chooseItem('09', '15-animation-from-md2');">15-animation-from-md2</a><br/>
+							<a href="javascript:chooseItem('09', '16-animation-from-gltf');">16-animation-from-gltf</a>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第十章</h3>
+						<p class="content__meta">加载和使用纹理</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('10', '01-basic-texture');">01-basic-texture</a>
+							<a href="javascript:chooseItem('10', '01-basic-texture-dds');">01-basic-texture-dds</a><br/>
+							<a href="javascript:chooseItem('10', '01-basic-texture-pvr');">01-basic-texture-pvr</a>
+							<a href="javascript:chooseItem('10', '01-basic-texture-tga');">01-basic-texture-tga</a><br/>
+							<a href="javascript:chooseItem('10', '02-bump-map');">02-bump-map</a>
+							<a href="javascript:chooseItem('10', '03-normal-map');">03-normal-map</a><br/>
+							<a href="javascript:chooseItem('10', '04-light-map');">04-light-map</a>
+							<a href="javascript:chooseItem('10', '05-env-map-dynamic');">05-env-map-dynamic</a><br/>
+							<a href="javascript:chooseItem('10', '05-env-map-static');">05-env-map-static</a>
+							<a href="javascript:chooseItem('10', '06-specular-map');">06-specular-map</a><br/>
+							<a href="javascript:chooseItem('10', '07-uv-mapping');">07-uv-mapping</a>
+							<a href="javascript:chooseItem('10', '07-uv-mapping-manual');">07-uv-mapping-manual</a><br/>
+							<a href="javascript:chooseItem('10', '08-repeat-wrapping');">08-repeat-wrapping</a>
+							<a href="javascript:chooseItem('10', '09-canvas-texture');">09-canvas-texture</a><br/>
+							<a href="javascript:chooseItem('10', '10-canvas-texture-bumpmap');">10-canvas-texture-bumpmap</a>
+							<a href="javascript:chooseItem('10', '11-video-texture');">11-video-texture</a><br/>
+							<a href="javascript:chooseItem('10', '11-video-texture-alternative');">11-video-texture-alternative</a>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第十一章</h3>
+						<p class="content__meta">定制着色器和渲染后期处理</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('11', '01-basic-effect-composer');">01-basic-effect-composer</a><br/>
+							<a href="javascript:chooseItem('11', '02-post-processing-simple-passes');">02-post-processing-simple-passes</a><br/>
+							<a href="javascript:chooseItem('11', '03-glitch-pass');">03-glitch-pass</a><br/>
+							<a href="javascript:chooseItem('11', '03-post-processing-masks');">03-post-processing-masks</a><br/>
+							<a href="javascript:chooseItem('11', '04-shaderpass-simple');">04-shaderpass-simple</a><br/>
+							<a href="javascript:chooseItem('11', '05-shaderpass-blur');">05-shaderpass-blur</a><br/>
+							<a href="javascript:chooseItem('11', '06-shaderpass-advanced');">06-shaderpass-advanced</a><br/>
+							<a href="javascript:chooseItem('11', '07-shaderpass-custom');">07-shaderpass-custom</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">第十二章</h3>
+						<p class="content__meta">用Physijs在场景中添加物理效果</p>
+						<p class="content__description">
+							<a href="javascript:chooseItem('12', '01-basic-scene');">01-basic-scene</a><br/>
+							<a href="javascript:chooseItem('12', '02-material-properties');">02-material-properties</a><br/>
+							<a href="javascript:chooseItem('12', '03-shapes');">03-shapes</a><br/>
+							<a href="javascript:chooseItem('12', '04-constraints');">04-constraints</a><br/>
+							<a href="javascript:chooseItem('12', '05-dof-constraint');">05-dof-constraint</a><br/>
+							<a href="javascript:chooseItem('12', '06-audio');">06-audio</a><br/>
+							<a href="javascript:chooseItem('12', 'hinge');">hinge</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">sky-demo</h3>
+						<p class="content__meta">skyliu制作的dome</p>
+						<p class="content__description">
+							<a href="javascript:chooseDemo('00-three框架');">00-three框架</a><br/>
+							<a href="javascript:chooseDemo('01-鼠标射线接触物体');">01-鼠标射线接触物体</a><br/>
+							<a href="javascript:chooseDemo('02-简单模型操作');">02-简单模型操作</a><br/>
+						</p>
+					</div>
+					<div class="content__block">
+						<h3 class="content__title">sky-books</h3>
+						<p class="content__meta">skyliu收集的书籍资料</p>
+						<p class="content__description">
+							<a href="javascript:chooseDOC('Three.js开发指南.pdf');">01-Three.js开发指南</a><br/>
+							<a href="javascript:chooseDOC('Three.js入门指南.pdf');">02-Three.js入门指南</a><br/>
+							<a href="javascript:chooseDOC('three学习笔记.docx');">03-three学习笔记</a><br/>
+							<a href="javascript:chooseDOC('WebGL编程指南.pdf');">04-WebGL编程指南</a><br/>
+						</p>
+					</div>
+					<div class="content__number">0</div>
+					<button class="btn-back" aria-label="Back to the grid view">&crarr;</button>
+				</div><!-- /content -->
+			</div><!-- /calendar-wrap -->
+		</main>
+		<script src="js/charming.min.js"></script>
+		<script src="js/anime.min.js"></script>
+		<script src="js/textfx.js"></script>
+		<script src="js/main.js"></script>
+		<script src="layer/jquery-1.9.1.min.js"></script>
+		<script src="layer/layer.js"></script>
+		<script type="text/javascript">
+
+            /**
+             * 章节案例点击事件
+             */
+            function chooseItem(item, page) {
+                var url = "master/chapter-" + item + "/" + page +".html";
+                openLayer(url);
+            }
+
+            /**
+             * demo点击事件
+             */
+            function chooseDemo(page) {
+                var url = "demo/" + page + ".html";
+                openLayer(url);
+            }
+
+            /**
+             * doc点击事件
+             */
+            function chooseDOC(page) {
+                var url = "DOC/" + page;
+                openLayer(url);
+            }
+
+            /**
+             * 弹出页面查看
+             * @param url
+             */
+            function openLayer(url) {
+                layer.open({
+                    type: 2,
+                    title: "查看案例",
+                    area: ['90%', '90%'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    content: url
+                });
+            }
+		</script>
+	</body>
+</html>

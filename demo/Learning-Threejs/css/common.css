@@ -1,0 +1,600 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Playfair Display', serif;
+	color: #3f3f45;
+	background: #f0f0f3;
+	transition: background-color 0.8s;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	color: #777785;
+	outline: none;
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+	-webkit-transition: color 0.2s;
+	transition: color 0.2s;
+}
+
+a.link::after {
+	content: '';
+	position: absolute;
+	top: 105%;
+	width: 100%;
+	border-bottom: 2px solid;
+	left: 0;
+	-webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
+	transition: opacity 0.2s, -webkit-transform 0.2s;
+}
+
+a.link:hover::after {
+	opacity: 0;
+	-webkit-transform: translate3d(0,3px,0);
+	transform: translate3d(0,3px,0);
+}
+
+a:hover,
+a:focus {
+	text-decoration: none;
+	color: #3f3f45;
+}
+
+main {
+	position: relative;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	overflow-x: hidden;
+	width: 100vw;
+	height: 100vh;
+}
+
+.hidden {
+	position: absolute;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+
+/* Icons */
+
+.icon {
+	display: block;
+	width: 1.5em;
+	height: 1.5em;
+	margin: 0 auto;
+	fill: currentColor;
+}
+
+
+/* Header */
+
+.codrops-header {
+	position: relative;
+	z-index: 1000;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-justify-content: space-between;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex: none;
+	-ms-flex: none;
+	flex: none;
+	width: 100%;
+	padding: 0.5em 1.25em 0.5em 0.75em;
+	background: #fff;
+}
+
+.codrops-header__main {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.codrops-header__title {
+	font-size: 1.5em;
+	font-weight: 700;
+	margin: 0;
+	line-height: 0.8;
+	padding: 0 0 0.1em 0;
+}
+
+.codrops-header__tagline {
+	font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif;
+	padding: 0 0.5em 0 5vw;
+	margin: 0 auto 0 0;
+}
+
+/* Top Navigation Style */
+
+.codrops-links {
+	position: relative;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.codrops-links::after {
+	content: '';
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	width: 2px;
+	height: 70%;
+	opacity: 0.7;
+	background: rgba(0, 0, 0, 0.25);
+	-webkit-transform: rotate3d(0, 0, 1, 22.5deg);
+	transform: rotate3d(0, 0, 1, 22.5deg);
+}
+
+.codrops-icon {
+	display: inline-block;
+	margin: 0.5em;
+	padding: 0.5em;
+}
+
+/* Demo links */
+
+.codrops-demos {
+	margin: 0.25em 0;
+	padding: 0 1em;
+	font-weight: bold;
+}
+
+.codrops-demos a {
+	display: inline-block;
+	margin: 0 0.5em 0 0;
+}
+
+.codrops-demos a.current-demo {
+	color: #333;
+}
+
+.codrops-demos a.current-demo::after {
+	display: none;
+}
+
+
+/* Calendar */
+
+.calendar-wrap {
+	position: relative;
+}
+
+.js .calendar-wrap {
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+}
+
+.calendar {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	/* we always want 5 boxes in a row */
+	padding: 3em calc((100vw - (5 * (7vw + 1vw)))/2);
+}
+
+.js .calendar {
+	position: absolute;
+	-webkit-perspective: 1000px;
+	perspective: 1000px;
+	padding: 0 calc((100vw - (5 * (7vw + 1vw)))/2) 5em;
+}
+
+.no-js .calendar {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-align-content: center;
+	-ms-flex-line-pack: center;
+	align-content: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+
+/* Cubes container */
+
+.cubes {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-align-content: center;
+	-ms-flex-line-pack: center;
+	align-content: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+
+/* Single cube */
+
+.cube {
+	position: relative;
+	display: block;
+	-webkit-flex: none;
+	-ms-flex: none;
+	flex: none;
+	width: 7vw;
+	height: 7vw;
+	margin: 0.5vw;
+}
+
+.js .cube {
+	-webkit-flex: auto;
+	-ms-flex: auto;
+	flex: auto;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+
+/* push to the right weekday (we have to push 2 boxes) */
+
+.js .cube:first-child {
+	margin-left: calc(((7vw + 1vw) * 2) + 0.5vw);
+}
+
+.js .cube:not(.cube--inactive) {
+	cursor: pointer;
+}
+
+
+/* cube sides and rotations */
+
+.cube__side {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: inherit;
+	height: inherit;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.cube__side--front {
+	position: relative;
+	-webkit-transform: translateZ(3.5vw);
+	transform: translateZ(3.5vw);
+}
+
+.cube__side--back {
+	-webkit-transform: rotateY(180deg) translateZ(3.5vw);
+	transform: rotateY(180deg) translateZ(3.5vw);
+}
+
+.cube__side--right {
+	-webkit-transform: rotateY(90deg) translateZ(3.5vw);
+	transform: rotateY(90deg) translateZ(3.5vw);
+}
+
+.cube__side--left {
+	-webkit-transform: rotateY(-90deg) translateZ(3.5vw);
+	transform: rotateY(-90deg) translateZ(3.5vw);
+}
+
+.cube__side--top {
+	-webkit-transform: rotateX(90deg) translateZ(3.5vw);
+	transform: rotateX(90deg) translateZ(3.5vw);
+}
+
+.cube__side--bottom {
+	-webkit-transform: rotateX(-90deg) translateZ(3.5vw);
+	transform: rotateX(-90deg) translateZ(3.5vw);
+}
+
+
+/* Cube counters and numbers */
+
+
+/* Without JS we want an auto counter */
+
+.no-js .calendar {
+	counter-reset: boxes-counter;
+}
+
+.no-js .cube {
+	counter-increment: boxes-counter;
+}
+
+.no-js .cube::after {
+	content: counter(boxes-counter);
+}
+
+.cube__number,
+.no-js .cube::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+
+/* canvas for snow */
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+	transition: background-color 0.8s;
+}
+
+
+/* title that appears on hover */
+
+.title {
+	font-size: 3.25vw;
+	font-weight: 700;
+	position: absolute;
+	right: 3vw;
+	bottom: 3vw;
+	margin: 0;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+}
+
+
+/* number before title */
+
+.title::before {
+	content: attr(data-number);
+	display: inline-block;
+	margin-right: 0.5em;
+	color: white;
+}
+
+
+/* letter span for animations */
+
+[class*='letter'] {
+	position: relative;
+	display: inline-block;
+	white-space: pre;
+}
+
+[class*='letter']:blank {
+	padding-right: 10em;
+}
+
+
+/* content wrap */
+
+.content {
+	position: relative;
+}
+
+.js .content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+
+/* individual content block */
+
+.content__block {
+	padding: 10vh 5vw;
+}
+
+.js .content__block {
+	padding: 20vh 5vw;
+	position: absolute;
+	z-index: 100;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	width: 85%;
+	height: 100%;
+	padding: 3em 0 6em 7vw;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
+}
+
+.content__title {
+	font-size: 7vw;
+	line-height: 0.85;
+	margin: 0;
+}
+
+.content__description {
+	font-size: 2.25vw;
+	margin: 1em 0;
+	padding: 0 0 0 5vw;
+}
+
+.content__meta {
+	font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif;
+	margin: 0;
+	padding: 2vw 0 0 2vw;
+}
+
+.content__meta::before {
+	content: '\2014';
+}
+
+.content__number {
+	position: absolute;
+}
+
+.btn-back {
+	font-size: 2em;
+	line-height: 2;
+	position: absolute;
+	z-index: 100;
+	right: 0;
+	bottom: 0;
+	width: 2em;
+	margin: 0;
+	margin: 1em;
+	padding: 0;
+	pointer-events: auto;
+	color: currentColor;
+	border: 0;
+	border: 2px solid;
+	background: none;
+}
+
+.btn-back:focus {
+	outline: none;
+}
+
+.no-js .content__number,
+.no-js .btn-back {
+	display: none;
+}
+
+.js .content__block,
+.js .content__description,
+.js .content__meta,
+.js .content__number,
+.js .btn-back {
+	opacity: 0;
+}
+
+.js .content__block--current {
+	pointer-events: auto;
+	opacity: 1;
+}
+
+@media screen and (max-width: 50.75em) {
+	.calendar {
+		padding: 3em calc((100vw - (7 * (14vw + 1vw)))/2);
+	}
+	.js .calendar {
+		padding: 0 calc((100vw - (7 * (12vw + 1vw)))/2) 5em;
+	}
+	.cube {
+		width: 12vw;
+		height: 12vw;
+	}
+	/* push to the right weekday if in big view (we have to push 3 boxes) */
+	.js .cube:first-child {
+		margin-left: calc(((12vw + 1vw) * 3) + 0.5vw);
+	}
+	.cube__side--front {
+		-webkit-transform: translateZ(6vw);
+		transform: translateZ(6vw);
+	}
+	.cube__side--back {
+		-webkit-transform: rotateY(180deg) translateZ(6vw);
+		transform: rotateY(180deg) translateZ(6vw);
+	}
+	.cube__side--right {
+		-webkit-transform: rotateY(90deg) translateZ(6vw);
+		transform: rotateY(90deg) translateZ(6vw);
+	}
+	.cube__side--left {
+		-webkit-transform: rotateY(-90deg) translateZ(6vw);
+		transform: rotateY(-90deg) translateZ(6vw);
+	}
+	.cube__side--top {
+		-webkit-transform: rotateX(90deg) translateZ(6vw);
+		transform: rotateX(90deg) translateZ(6vw);
+	}
+	.cube__side--bottom {
+		-webkit-transform: rotateX(-90deg) translateZ(6vw);
+		transform: rotateX(-90deg) translateZ(6vw);
+	}
+	.title {
+		font-size: 5vw;
+	}
+	.content__description {
+		font-size: 1.15em;
+		padding: 0 0 0 0.5em;
+	}
+	.js .content__block {
+		padding: 2em;
+		width: 100%;
+	}
+	.btn-back {
+		font-size: 1.25em;
+		bottom: auto;
+		top: 0;
+		margin: 0.5em;
+	}
+}
+
+@media screen and (max-width: 26em) {
+	.codrops-header {
+		font-size: 0.75em;
+	}
+	.codrops-header__tagline {
+		display: none;
+	}
+	.codrops-header__title {
+		font-size: 1.5em;
+	}
+	.codrops-demos {
+		width: 100%;
+		margin: 0;
+		padding: 0.5em 1em;
+	}
+}

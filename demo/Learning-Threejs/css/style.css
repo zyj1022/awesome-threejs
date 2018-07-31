@@ -1,0 +1,70 @@
+.cube__side,
+.no-js .cube {
+	border: 0.75vw solid #fff;
+	outline: 1px solid #fff;
+	background: #f0f0f0 url(../img/mandala.png) no-repeat center center;
+}
+
+.cube:not(.cube--inactive):nth-child(2n) .cube__side,
+.no-js .cube:not(.cube--inactive):nth-child(2n) {
+	background-image: url(../img/mandala2.png);
+}
+
+.cube:not(.cube--inactive):nth-child(3n) .cube__side,
+.no-js .cube:not(.cube--inactive):nth-child(3n) {
+	background-image: url(../img/mandala3.png);
+}
+
+.cube--inactive .cube__side,
+.no-js .cube--inactive {
+	background: #e1e0e0;
+}
+
+
+/* With JS we insert a number span into the cube */
+
+.cube__number,
+.no-js .cube::after {
+	font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif;
+	font-weight: 700;
+	line-height: 2.5;
+	width: 2em;
+	height: 2em;
+	padding: 0 0 0 0.25em;
+	text-align: center;
+	letter-spacing: -0.05em;
+	color: #fff;
+	border-radius: 100% 0 0 0;
+	background: #f8af8d;
+}
+
+.cube:nth-child(2n):not(.cube--inactive) .cube__number,
+.no-js .cube:nth-child(2n):not(.cube--inactive)::after {
+	background: #f8d18d;
+}
+
+.cube:nth-child(3n):not(.cube--inactive) .cube__number,
+.no-js .cube:nth-child(3n):not(.cube--inactive)::after {
+	background: #8df88d;
+}
+
+.cube--inactive .cube__number,
+.no-js .cube--inactive::after {
+	background: #aaa;
+}
+
+.js .content__block {
+	text-align: right;
+}
+
+.content__number {
+	font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif;
+	font-size: 40vw;
+	font-weight: bold;
+	line-height: 0.5;
+	right: 0;
+	bottom: 30vh;
+	text-indent: -0.175em;
+	letter-spacing: -0.175em;
+	color: #fff;
+}

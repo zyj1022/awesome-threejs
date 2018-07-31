@@ -1,0 +1,168 @@
+
+.pater {
+	position: fixed;
+	width: 320px;
+	height: auto;
+	bottom: 0;
+	left: 0;
+	padding: 1em 2em 2em 2em;
+	font-family: 'Helvetica', Arial, sans-serif;
+	color: #000;
+	font-size: 0.85em;
+	pointer-events: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index: 10000;
+}
+
+.pater:hover {
+	pointer-events: auto;
+}
+
+.pater__title {
+	line-height: 1;
+	position: relative;
+	z-index: 10;
+	padding: 10px 0 8px 52px;
+	cursor: default;
+	color: #262628;
+	background: url(../img/sponsor/webydo-logo.png) no-repeat 0% 50%;
+	-webkit-transform: translateY(40px);
+	transform: translateY(40px);
+	opacity: 0;
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+}
+
+.pater:hover .pater__title {
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+
+.pater__hidden {
+	position: relative;
+	z-index: 100;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.pater:hover .pater__hidden {
+	opacity: 1;
+}
+
+.pater__description {
+	line-height: 1.2;
+	color: #747474;
+	cursor: default;
+}
+
+.pater__sponsor {
+	font-size: 0.875em;
+	position: relative;
+	display: block;
+	z-index: 10;
+	cursor: default;
+	color: #262628;
+	-webkit-transform: translate3d(139px,0px,0);
+	transform: translate3d(139px,0px,0);
+	-webkit-transition: -webkit-transform 0.3s, color 0.3s;
+	transition: transform 0.3s, color 0.3s;
+}
+
+.pater:hover .pater__sponsor {
+	color: #262628;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.pater__button {
+	background: #fec841;
+	color: #262628;
+	cursor: pointer;
+	padding: 0.65em 1.25em;
+	border-radius: 1.5em;
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	top: 100%;
+	margin: 0.5em 0 0;
+	z-index: 100;
+	line-height: 1;
+	-webkit-transition: background-color 0.2s, color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
+}
+
+.pater__button:hover {
+	background: #000;
+	color: #fff;
+}
+
+.pater__effect {
+	position: absolute;
+	pointer-events: auto;
+	width: 260px;
+	top: -4.5em;
+	left: 0;
+	-webkit-transform: rotate(-22.5deg);
+	transform: rotate(-22.5deg);
+}
+
+.pater__effect img {
+	display: block;
+	float: left;
+	position: relative;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.pater__effect img:nth-child(2) {
+	margin: 4em 0 0 -3em;
+}
+
+.pater__effect img:nth-child(3) {
+	margin: -7em 0 0 0.5em;
+}
+
+.pater:hover .pater__effect img:nth-child(1) {
+	-webkit-transform: translate3d(0,-110px,0);
+	transform:  translate3d(0,-110px,0);
+}
+
+.pater:hover .pater__effect img:nth-child(2) {
+	-webkit-transform: translate3d(0,-130px,0);
+	transform: translate3d(0,-130px,0);
+}
+
+.pater:hover .pater__effect img:nth-child(3) {
+	-webkit-transform: translateY(55px);
+	transform: translateY(55px);
+}
+
+.pater-responsive {
+	position: fixed;
+	display: none;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	z-index: 1000;
+	font-size: 0.85em;
+	padding: 1.5em 1em 1.5em 5em;
+	color: #000;
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+	background: #fff url(../img/sponsor/webydo-logo.png) no-repeat 0.75em 50%;
+}
+
+@media screen and (max-width: 50.75em) {
+	.pater {
+		display: none;
+	}
+	.pater-responsive {
+		display: block;
+	}
+}
