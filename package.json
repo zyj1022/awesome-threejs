@@ -1,0 +1,29 @@
+{
+  "name": "awesome-threejs",
+  "version": "1.0.0",
+  "description": "three.js",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyj1022/awesome-threejs.git"
+  },
+  "keywords": [
+    "three.js",
+    "three"
+  ],
+  "author": "zhiking",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zyj1022/awesome-threejs/issues"
+  },
+  "homepage": "https://github.com/zyj1022/awesome-threejs#readme",
+  "dependencies": {
+    "live-server": "^1.2.0"
+  }
+}

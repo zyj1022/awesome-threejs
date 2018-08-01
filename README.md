@@ -8,11 +8,18 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ## 基础入门
 
-* [Three.js 中文文档](http://techbrood.com/threejs/docs/)
+#### 问-学-记
+
+个人学习过程中的疑问记录及demo演示，小白入门开始。
+
 * [什么是WebGL?](./docs/what-webgl.md)
+* [开始第一个Hello world](./docs/hello-world.md)
 
-### 网上博客
 
+#### 网上收集资料
+* [youtube入门视频教程](https://www.youtube.com/watch?v=biZgx45Mzqo&list=PL08jItIqOb2qyMOhtEUoLh100KpccQiRf&index=2)
+* [Three.js 中文文档](http://techbrood.com/threejs/docs/)
+* [ThreeJS快速入门](https://zhuanlan.zhihu.com/p/23272116)
 * [learningthreejs-系列博客](http://learningthreejs.com)
 * [webgl 入门教程](https://codepen.io/rachsmith/post/beginning-with-3d-webgl-pt-1-the-scene)
 * [使用 D3 + webgl 制作地球仪](http://www.delimited.io/blog/2015/5/16/interactive-webgl-globes-with-threejs-and-d3)
@@ -22,6 +29,9 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 
 ## 进阶实例
+
+……loading……
+
 
 ## Threejs 相关的库
 
@@ -45,6 +55,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [CESIUM 3D 地球](http://cesiumjs.org/index.html)
 
 ### 在线DEMO
+* [83个含注释Demo](https://stemkoski.github.io/Three.js/)
 * [Three Bird](http://codepen.io/Yakudoo/pen/LVyJXw?editors=0010)
 * [Crystals](http://codepen.io/aglosson/pen/rVyRGm?editors=0010)
 * [three.js-editor](https://threejs.org/editor/)
@@ -61,4 +72,5 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 * 《WebGL编程指南》
 * 《Three.js开发指南》— [在线Demo案例](http://www.skyliu.top/three-js/)
-* 《Three.js入门指南》
+* [《Three.js入门指南》](http://www.ituring.com.cn/book/1272)—[书例代码](http://zhangwenli.com/ThreeExample.js/)
+* [Three.js入门教程](http://www.cnblogs.com/yiyezhai/category/447410.html) — 这是对国外一份教程的翻译，一共六篇文章。讲解不多，更多的是展示各个基本功能怎么用。更适合有一些图形基础的同学
