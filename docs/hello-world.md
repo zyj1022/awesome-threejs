@@ -1,4 +1,6 @@
-# Three.js 之 Hello world!
+# Hello Three.js 之 Hello world!
+
+> [Demo查看](../demo/hello-threejs/hello-world.html)
 
 ## 准备工作
 

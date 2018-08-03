@@ -4,16 +4,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>My-threejs-test</title>
+	<title>hello-PerspectiveCamera</title>
 	<style>
 		body {
 			margin: 0;
 			overflow: hidden;
 		}
 	</style>
-	<script type="text/javascript" src="libs/three.js"></script>
-	<script type="text/javascript" src="libs/OrbitControls.js"></script>
-	<script type="text/javascript" src="libs/stats.js"></script>
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+	<script type="text/javascript" src="../../libs/stats.js"></script>
 </head>
 
 <body>
@@ -24,8 +24,6 @@
 		var container, stats;
 		var camera, scene, renderer, mesh, grid, controls;
 		var cameraPerspective, cameraRig;
-		var cameraOrtho, cameraOrthoHelper;
-
 
 		// -----
 
@@ -39,21 +37,24 @@
 
 			scene = new THREE.Scene();
 
+			cameraPerspective = new THREE.PerspectiveCamera(50, 0.5 * SCREEN_WIDTH / SCREEN_HEIGHT, 300, 1200);
+			cameraPerspective.fov = 15;
+			cameraPerspective.rotation.y = Math.PI;
+			scene.add(cameraPerspective);
+
+			cameraPerspectiveHelper = new THREE.CameraHelper(cameraPerspective);
+			scene.add(cameraPerspectiveHelper);
+
 			camera = new THREE.PerspectiveCamera(50, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
 			camera.position.y = 300;
 			camera.position.z = 1500;
 
-			cameraOrtho = new THREE.OrthographicCamera(  0.5 * SCREEN_WIDTH / - 2, 0.5 * SCREEN_WIDTH / 2,  SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, 150, 1500 );
-			cameraOrtho.rotation.y = Math.PI;
-
-			cameraOrthoHelper = new THREE.CameraHelper( cameraOrtho );
-			scene.add( cameraOrthoHelper );
-
 			cameraRig = new THREE.Object3D();
 
-			cameraRig.add( cameraOrtho );
+			cameraRig.add(cameraPerspective);
 
 			cameraRig.position.set(-300, 400, 500);
+
 			scene.add(cameraRig);
 
 			grid = new THREE.GridHelper(2000, 300, 0x555555, 0xbbbbbb);
@@ -103,20 +104,15 @@
 			// mesh.position.z = 500 * Math.sin( r );
 			// mesh.position.y = 500 * Math.sin( r );
 
-			cameraOrtho.updateProjectionMatrix();
-			cameraOrthoHelper.update();
+			cameraPerspective.updateProjectionMatrix();
+			cameraPerspectiveHelper.update();
 
 			cameraRig.lookAt(mesh.position);
 
 			renderer.clear();
 
-			renderer.setViewport( SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-			renderer.render( scene, cameraOrtho );
-
 			renderer.setViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 			renderer.render(scene, camera);
-
-
 		}
 	</script>
 </body>
