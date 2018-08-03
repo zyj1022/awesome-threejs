@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Topology Data 2 (Three.js)</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel=stylesheet href="css/base.css"/>
+</head>
+<body>
+
+<script src="js/Three.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/Stats.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/THREEx.KeyboardState.js"></script>
+<script src="js/THREEx.FullScreen.js"></script>
+<script src="js/THREEx.WindowResize.js"></script>
+
+<script src="js/topology.js"></script>
+
+<!-- jQuery code to display an information button and box when clicked. -->
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<link rel=stylesheet href="css/jquery-ui.css" />
+<link rel=stylesheet href="css/info.css"/>
+<script src="js/info.js"></script>
+<div id="infoButton"></div>
+<div id="infoBox" title="Demo Information">
+This three.js demo is part of a collection at
+<a href="http://stemkoski.github.io/Three.js/">http://stemkoski.github.io/Three.js/</a>
+</div>
+<!-- ------------------------------------------------------------ -->
+
+<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+<script>
+/*
+	Three.js "tutorials by example"
+	Author: Lee Stemkoski
+	Date: July 2013 (three.js v59dev)
+*/
+
+// MAIN
+
+// standard global variables
+var container, scene, camera, renderer, controls, stats;
+var keyboard = new THREEx.KeyboardState();
+var clock = new THREE.Clock();
+
+init();
+animate();
+
+// FUNCTIONS 		
+function init() 
+{
+	// SCENE
+	scene = new THREE.Scene();
+	// CAMERA
+	var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+	var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
+	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+	scene.add(camera);
+	camera.position.set(0,150,400);
+	camera.lookAt(scene.position);	
+	// RENDERER
+	if ( Detector.webgl )
+		renderer = new THREE.WebGLRenderer( {antialias:true} );
+	else
+		renderer = new THREE.CanvasRenderer(); 
+	renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	container = document.getElementById( 'ThreeJS' );
+	container.appendChild( renderer.domElement );
+	// EVENTS
+	THREEx.WindowResize(renderer, camera);
+	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+	// CONTROLS
+	controls = new THREE.OrbitControls( camera, renderer.domElement );
+	// STATS
+	stats = new Stats();
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.bottom = '0px';
+	stats.domElement.style.zIndex = 100;
+	container.appendChild( stats.domElement );
+	// LIGHT
+	var light = new THREE.PointLight(0xffffff);
+	light.position.set(0,250,0);
+	scene.add(light);
+	
+	// SKYBOX/FOG
+	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
+	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
+	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
+	scene.add(skyBox);
+	
+	////////////
+	// CUSTOM //
+	////////////
+	
+	var geometry = new THREE.SphereGeometry( 100, 4, 3 );
+	THREE.GeometryUtils.triangulateQuads(geometry);
+	geometry.mergeVertices();
+	
+	var faceMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff, vertexColors: THREE.FaceColors, side: THREE.DoubleSide } );
+	
+	this.topo = new TOPOLOGY.createFromGeometry(geometry);
+	topo.computeCenters();
+	
+	var Z = new THREE.Vector3(0,0,0);
+	var P = topo.face[6].center.clone().multiplyScalar(3);
+	drawLine( P, Z );
+	
+	var tempMesh = new THREE.Mesh(geometry);
+	var data = getCollisionData(P, tempMesh);
+	// data.length = 1  -->  face collision.
+	var faceIndex = tempMesh.geometry.faces.indexOf( data[0].face );  // should = 6
+	topo.retriangulateFace( faceIndex, data[0].point.clone() );
+
+	// need to recreate geometry to mirror changes in topology!
+	var geometry = topo.convertToGeometry();
+
+	var Q = topo.edge[18].center.clone().multiplyScalar(3);
+	drawLine( Q, Z );
+
+	var tempMesh = new THREE.Mesh(geometry);
+	var data = getCollisionData(Q, tempMesh);
+	// data.length = 2  -->  edge collision.	
+	var faceIndex0 = tempMesh.geometry.faces.indexOf( data[0].face );  // should = 10
+	var faceIndex1 = tempMesh.geometry.faces.indexOf( data[1].face );  // should = 11
+	var edgeIndex  = topo.edgeIDWithFaces( faceIndex0, faceIndex1 );   // should = 18
+	topo.retriangulateEdge( 18, data[0].point.clone() );
+		
+	// need to recreate geometry to mirror changes in topology!
+	var geometry = topo.convertToGeometry();
+	
+	mesh = new THREE.Mesh( geometry, faceMaterial );
+	scene.add(mesh);
+
+	topo.computeCenters();
+
+	// draw labels.
+	
+	for (var i = 0; i < topo.vertex.length; i++)
+	{
+		var spritey = makeTextSprite( " " + i + " ", { fontsize: 24, backgroundColor: {r:255, g:100, b:100, a:1} } );
+		spritey.position = topo.vertex[i].vector3.clone().multiplyScalar(1.1);
+		scene.add( spritey );
+	}
+	
+	for (var i = 0; i < topo.edge.length; i++)
+	{
+		var spritey = makeTextSprite( " " + i + " ", { fontsize: 24, backgroundColor: {r:100, g:255, b:100, a:1} } );
+		spritey.position = topo.edge[i].center.clone().multiplyScalar(1.1);
+		scene.add( spritey );
+	}
+	
+	for (var i = 0; i < topo.face.length; i++)
+	{
+		var spritey = makeTextSprite( " " + i + " ", { fontsize: 24, backgroundColor: {r:100, g:100, b:255, a:1} } );
+		spritey.position = topo.face[i].center.clone().multiplyScalar(1.1);
+		scene.add( spritey );
+	}
+	
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// HELPER METHODS 
+
+function makeTextSprite( message, parameters )
+{
+	if ( parameters === undefined ) parameters = {};
+	
+	var fontface = parameters.hasOwnProperty("fontface") ? 
+		parameters["fontface"] : "Arial";
+	
+	var fontsize = parameters.hasOwnProperty("fontsize") ? 
+		parameters["fontsize"] : 18;
+	
+	var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
+		parameters["borderThickness"] : 4;
+	
+	var borderColor = parameters.hasOwnProperty("borderColor") ?
+		parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+	
+	var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
+		parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
+
+	var spriteAlignment = THREE.SpriteAlignment.topLeft;
+
+	var canvas = document.createElement('canvas');
+	var context = canvas.getContext('2d');
+	context.font = "Bold " + fontsize + "px " + fontface;
+    
+	// get size data (height depends only on font size)
+	var metrics = context.measureText( message );
+	var textWidth = metrics.width;
+	
+	// background color
+	context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
+								  + backgroundColor.b + "," + backgroundColor.a + ")";
+	// border color
+	context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
+								  + borderColor.b + "," + borderColor.a + ")";
+
+	context.lineWidth = borderThickness;
+	roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+	// 1.4 is extra height factor for text below baseline: g,j,p,q.
+	
+	// text color
+	context.fillStyle = "rgba(0, 0, 0, 1.0)";
+
+	context.fillText( message, borderThickness, fontsize + borderThickness);
+	
+	// canvas contents will be used for a texture
+	var texture = new THREE.Texture(canvas) 
+	texture.needsUpdate = true;
+
+	var spriteMaterial = new THREE.SpriteMaterial( 
+		{ map: texture, useScreenCoordinates: false, alignment: spriteAlignment } );
+	var sprite = new THREE.Sprite( spriteMaterial );
+	sprite.scale.set(100,50,1.0);
+	return sprite;	
+}
+
+// function for drawing rounded rectangles
+function roundRect(ctx, x, y, w, h, r) 
+{
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.lineTo(x+w-r, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+    ctx.lineTo(x+w, y+h-r);
+    ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    ctx.lineTo(x+r, y+h);
+    ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+    ctx.lineTo(x, y+r);
+    ctx.quadraticCurveTo(x, y, x+r, y);
+    ctx.closePath();
+    ctx.fill();
+	ctx.stroke();   
+}
+
+function drawLine(P,Q, color, dashed)
+{
+	var lineGeometry = new THREE.Geometry();
+	lineGeometry.vertices.push( P, Q );
+	lineGeometry.computeLineDistances();
+	if ( dashed === undefined || !dashed )
+		var lineMaterial = new THREE.LineBasicMaterial( {color:0x884400} );
+	else // dashed = true
+		var lineMaterial = new THREE.LineDashedMaterial( { dashSize: 2, gapSize: 2 } );
+	if (color !== undefined)
+		lineMaterial.color = color;
+	var line = new THREE.Line( lineGeometry, lineMaterial );
+	scene.add(line);
+}	
+
+function drawPoint(position, color)
+{
+	var particleTexture = THREE.ImageUtils.loadTexture( 'images/disc.png' );
+	var spriteMaterial = new THREE.SpriteMaterial( { map: particleTexture, useScreenCoordinates: false, color: 0x9999cc } );
+	if ( color !== undefined ) spriteMaterial.color = color;
+	var sprite = new THREE.Sprite( spriteMaterial );
+	sprite.scale.set( 10, 10, 1.0 ); // imageWidth, imageHeight
+	sprite.position = position.clone();
+	scene.add(sprite);
+}
+
+// draw a ray from point to origin
+// @return point of intersection with mesh
+function projectOntoMesh(point, mesh)
+{
+	var origin = point.clone();
+	var direction = point.clone().multiplyScalar(-1);
+	var ray = new THREE.Raycaster( origin, direction.normalize() );
+	var intersection = ray.intersectObject( mesh );
+	if ( intersection.length > 0 )
+		return intersection[ 0 ].point;
+	else
+		// console.log( "No intersection?" );
+		return null;
+}
+
+// target = geometry or mesh.
+// draw a ray from point to origin
+function getCollisionData(point, target)
+{
+	var origin = point.clone();
+	var direction = point.clone().multiplyScalar(-1);
+	var ray = new THREE.Raycaster( origin, direction.normalize() );
+	var mesh = (target instanceof THREE.Mesh) ? target : THREE.Mesh(target); 
+	var intersection = ray.intersectObject( mesh );
+	if ( intersection.length > 0 )
+		return intersection;
+	else
+		// console.log( "No intersection?" );
+		return null;
+}
+
+
+function animate() 
+{
+    requestAnimationFrame( animate );
+	render();		
+	update();
+}
+
+function update()
+{
+	controls.update();
+	stats.update();
+}
+
+function render() 
+{
+	renderer.render( scene, camera );
+}
+
+</script>
+
+</body>
+</html>

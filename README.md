@@ -47,6 +47,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 #### 网上收集资料
 
+* [图解WebGL&Three.js工作原理](https://www.cnblogs.com/wanbo/p/6754066.html)
 * [three.js editor使用视频教程](https://www.youtube.com/watch?v=rqn-KPnh3hM)
 * [youtube入门视频教程](https://www.youtube.com/watch?v=biZgx45Mzqo&list=PL08jItIqOb2qyMOhtEUoLh100KpccQiRf&index=2)
 * [Three.js 中文文档](http://techbrood.com/threejs/docs/)
@@ -74,6 +75,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [3dwarehouse](https://3dwarehouse.sketchup.com)
 * [行星素材](http://planetpixelemporium.com/earth.html)
 * [Clara.io 3D素材](https://clara.io/library)
+* [Shadertoy 着色器](https://www.shadertoy.com)
 
 ## 在线站点
 

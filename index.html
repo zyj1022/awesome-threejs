@@ -43,19 +43,6 @@
 			camera.position.y = 300;
 			camera.position.z = 1500;
 
-			cameraOrtho = new THREE.OrthographicCamera(  0.5 * SCREEN_WIDTH / - 2, 0.5 * SCREEN_WIDTH / 2,  SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, 150, 1500 );
-			cameraOrtho.rotation.y = Math.PI;
-
-			cameraOrthoHelper = new THREE.CameraHelper( cameraOrtho );
-			scene.add( cameraOrthoHelper );
-
-			cameraRig = new THREE.Object3D();
-
-			cameraRig.add( cameraOrtho );
-
-			cameraRig.position.set(-300, 400, 500);
-			scene.add(cameraRig);
-
 			grid = new THREE.GridHelper(2000, 300, 0x555555, 0xbbbbbb);
 			grid.material.transparent = true;
 			// grid.position.y = -200;
@@ -63,10 +50,10 @@
 
 			mesh = new THREE.Mesh(
 				// new THREE.SphereGeometry( 50, 20, 12),
-				new THREE.BoxGeometry(100, 100, 100),
+				new THREE.BoxGeometry(200, 200, 200),
 				new THREE.MeshNormalMaterial()
 			);
-			mesh.position.y = 60;
+			mesh.position.y = 260;
 			scene.add(mesh);
 
 			renderer = new THREE.WebGLRenderer({
@@ -90,34 +77,14 @@
 
 
 		function animate() {
+			mesh.rotation.x += 0.01;
+			mesh.rotation.y += 0.02;
 			requestAnimationFrame(animate);
-			render();
+			renderer.render(scene, camera);
 			stats.update();
 		}
 
-		function render() {
 
-			var r = Date.now() * 0.0005;
-
-			// mesh.position.x = 500 * Math.cos( r );
-			// mesh.position.z = 500 * Math.sin( r );
-			// mesh.position.y = 500 * Math.sin( r );
-
-			cameraOrtho.updateProjectionMatrix();
-			cameraOrthoHelper.update();
-
-			cameraRig.lookAt(mesh.position);
-
-			renderer.clear();
-
-			renderer.setViewport( SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-			renderer.render( scene, cameraOrtho );
-
-			renderer.setViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-			renderer.render(scene, camera);
-
-
-		}
 	</script>
 </body>
 

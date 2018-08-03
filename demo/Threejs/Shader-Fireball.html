@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Shader - Fireball (Three.js)</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel=stylesheet href="css/base.css"/>
+</head>
+<body>
+
+<script src="js/Three.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/Stats.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/THREEx.KeyboardState.js"></script>
+<script src="js/THREEx.FullScreen.js"></script>
+<script src="js/THREEx.WindowResize.js"></script>
+
+<!-- ---------------- Custom Shader Code ------------------------ -->
+<script id="vertexShader" type="x-shader/x-vertex">
+uniform sampler2D noiseTexture;
+uniform float noiseScale;
+
+uniform sampler2D bumpTexture;
+uniform float bumpSpeed;
+uniform float bumpScale;
+
+uniform float time;
+
+varying vec2 vUv;
+
+void main() 
+{ 
+    vUv = uv;
+	
+	vec2 uvTimeShift = vUv + vec2( 1.1, 1.9 ) * time * bumpSpeed;
+	vec4 noiseGeneratorTimeShift = texture2D( noiseTexture, uvTimeShift );
+	vec2 uvNoiseTimeShift = vUv + noiseScale * vec2( noiseGeneratorTimeShift.r, noiseGeneratorTimeShift.g );
+	// below, using uvTimeShift seems to result in more of a "rippling" effect
+	//   while uvNoiseTimeShift seems to result in more of a "shivering" effect
+	vec4 bumpData = texture2D( bumpTexture, uvTimeShift );
+
+	// move the position along the normal
+	//  but displace the vertices at the poles by the same amount
+	float displacement = ( vUv.y > 0.999 || vUv.y < 0.001 ) ? 
+		bumpScale * (0.3 + 0.02 * sin(time)) :  
+		bumpScale * bumpData.r;
+    vec3 newPosition = position + normal * displacement;
+	
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+}
+</script>
+
+<!-- fragment shader a.k.a. pixel shader -->
+<script id="fragmentShader" type="x-shader/x-vertex"> 
+uniform sampler2D baseTexture;
+uniform float baseSpeed;
+uniform float repeatS;
+uniform float repeatT;
+
+uniform sampler2D noiseTexture;
+uniform float noiseScale;
+
+uniform sampler2D blendTexture;
+uniform float blendSpeed;
+uniform float blendOffset;
+
+uniform float time;
+uniform float alpha;
+
+varying vec2 vUv;
+
+void main() 
+{
+	vec2 uvTimeShift = vUv + vec2( -0.7, 1.5 ) * time * baseSpeed;	
+	vec4 noiseGeneratorTimeShift = texture2D( noiseTexture, uvTimeShift );
+	vec2 uvNoiseTimeShift = vUv + noiseScale * vec2( noiseGeneratorTimeShift.r, noiseGeneratorTimeShift.b );
+	vec4 baseColor = texture2D( baseTexture, uvNoiseTimeShift * vec2(repeatS, repeatT) );
+
+	vec2 uvTimeShift2 = vUv + vec2( 1.3, -1.7 ) * time * blendSpeed;	
+	vec4 noiseGeneratorTimeShift2 = texture2D( noiseTexture, uvTimeShift2 );
+	vec2 uvNoiseTimeShift2 = vUv + noiseScale * vec2( noiseGeneratorTimeShift2.g, noiseGeneratorTimeShift2.b );
+	vec4 blendColor = texture2D( blendTexture, uvNoiseTimeShift2 * vec2(repeatS, repeatT) ) - blendOffset * vec4(1.0, 1.0, 1.0, 1.0);
+
+	vec4 theColor = baseColor + blendColor;
+	theColor.a = alpha;
+	gl_FragColor = theColor;
+}  
+</script>
+<!-- ----------------------------------------------------------- -->
+
+<!-- jQuery code to display an information button and box when clicked. -->
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<link rel=stylesheet href="css/jquery-ui.css" />
+<link rel=stylesheet href="css/info.css"/>
+<script src="js/info.js"></script>
+<div id="infoButton"></div>
+<div id="infoBox" title="Demo Information">
+This three.js demo is part of a collection at
+<a href="http://stemkoski.github.io/Three.js/">http://stemkoski.github.io/Three.js/</a>
+</div>
+<!-- ------------------------------------------------------------ -->
+
+<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+<script>
+/*
+	Three.js "tutorials by example"
+	Author: Lee Stemkoski
+	Date: July 2013 (three.js v59dev)
+*/
+
+// MAIN
+
+// standard global variables
+var container, scene, camera, renderer, controls, stats;
+var keyboard = new THREEx.KeyboardState();
+var clock = new THREE.Clock();
+// custom global variables
+var cube;
+
+init();
+animate();
+
+// FUNCTIONS 		
+function init() 
+{
+	// SCENE
+	scene = new THREE.Scene();
+	// CAMERA
+	var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+	var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
+	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+	scene.add(camera);
+	camera.position.set(0,100,400);
+	camera.lookAt(scene.position);	
+	// RENDERER
+	if ( Detector.webgl )
+		renderer = new THREE.WebGLRenderer( {antialias:true} );
+	else
+		renderer = new THREE.CanvasRenderer(); 
+	renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	container = document.getElementById( 'ThreeJS' );
+	container.appendChild( renderer.domElement );
+	// EVENTS
+	THREEx.WindowResize(renderer, camera);
+	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+	// CONTROLS
+	controls = new THREE.OrbitControls( camera, renderer.domElement );
+	// STATS
+	stats = new Stats();
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.bottom = '0px';
+	stats.domElement.style.zIndex = 100;
+	container.appendChild( stats.domElement );
+	// LIGHT
+	var light = new THREE.PointLight(0xffffff);
+	light.position.set(0,250,0);
+	scene.add(light);
+	// FLOOR
+	var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
+	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+	floorTexture.repeat.set( 10, 10 );
+	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	floor.position.y = -0.5;
+	floor.rotation.x = Math.PI / 2;
+	scene.add(floor);
+	// SKYBOX/FOG
+	scene.fog = new THREE.FogExp2( 0x9999ff, 0.00025 );
+	
+	////////////
+	// CUSTOM //
+	////////////
+	
+	// base image texture for mesh
+	var lavaTexture = new THREE.ImageUtils.loadTexture( 'images/lava.jpg');
+	lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping; 
+	// multiplier for distortion speed 		
+	var baseSpeed = 0.02;
+	// number of times to repeat texture in each direction
+	var repeatS = repeatT = 4.0;
+	
+	// texture used to generate "randomness", distort all other textures
+	var noiseTexture = new THREE.ImageUtils.loadTexture( 'images/cloud.png' );
+	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping; 
+	// magnitude of noise effect
+	var noiseScale = 0.5;
+	
+	// texture to additively blend with base image texture
+	var blendTexture = new THREE.ImageUtils.loadTexture( 'images/lava.jpg' );
+	blendTexture.wrapS = blendTexture.wrapT = THREE.RepeatWrapping; 
+	// multiplier for distortion speed 
+	var blendSpeed = 0.01;
+	// adjust lightness/darkness of blended texture
+	var blendOffset = 0.25;
+
+	// texture to determine normal displacement
+	var bumpTexture = noiseTexture;
+	bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping; 
+	// multiplier for distortion speed 		
+	var bumpSpeed   = 0.15;
+	// magnitude of normal displacement
+	var bumpScale   = 40.0;
+	
+	// use "this." to create global object
+	this.customUniforms = {
+		baseTexture: 	{ type: "t", value: lavaTexture },
+		baseSpeed:		{ type: "f", value: baseSpeed },
+		repeatS:		{ type: "f", value: repeatS },
+		repeatT:		{ type: "f", value: repeatT },
+		noiseTexture:	{ type: "t", value: noiseTexture },
+		noiseScale:		{ type: "f", value: noiseScale },
+		blendTexture:	{ type: "t", value: blendTexture },
+		blendSpeed: 	{ type: "f", value: blendSpeed },
+		blendOffset: 	{ type: "f", value: blendOffset },
+		bumpTexture:	{ type: "t", value: bumpTexture },
+		bumpSpeed: 		{ type: "f", value: bumpSpeed },
+		bumpScale: 		{ type: "f", value: bumpScale },
+		alpha: 			{ type: "f", value: 1.0 },
+		time: 			{ type: "f", value: 1.0 }
+	};
+	
+	// create custom material from the shader code above
+	//   that is within specially labeled script tags
+	var customMaterial = new THREE.ShaderMaterial( 
+	{
+	    uniforms: customUniforms,
+		vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
+		fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+	}   );
+		
+	var ballGeometry = new THREE.SphereGeometry( 60, 64, 64 );
+	var ball = new THREE.Mesh(	ballGeometry, customMaterial );
+	ball.position.set(0, 65, 160);
+	scene.add( ball );
+}
+
+function animate() 
+{
+    requestAnimationFrame( animate );
+	render();		
+	update();
+}
+
+function update()
+{
+	if ( keyboard.pressed("z") ) 
+	{ 
+		// do something
+	}
+	var delta = clock.getDelta();
+	customUniforms.time.value += delta;
+	controls.update();
+	stats.update();
+}
+
+function render() 
+{
+	renderer.render( scene, camera );
+}
+
+</script>
+
+</body>
+</html>
