@@ -23,14 +23,26 @@
 
 		var container, stats;
 		var camera, scene, renderer, mesh, grid, controls;
-		var cameraPerspective, cameraRig;
-		var cameraOrtho, cameraOrthoHelper;
-
 
 		// -----
 
 		init();
 		animate();
+
+		function creatGeometry(geometry, material, scene, x= 0, y = 0, z = 0) {
+			// 创建图形
+			mesh = new THREE.Mesh(geometry, material );
+			mesh.position.x = x;
+			mesh.position.y = y;
+			mesh.position.z = z;
+
+			scene.add( mesh );
+			// 添加线框
+			// var wireframe = new THREE.WireframeGeometry( geometry );
+			// var line = new THREE.LineSegments( wireframe );
+			// line.material.color.setHex(0x555555);
+			// mesh.add( line );
+		}
 
 		function init() {
 
@@ -39,49 +51,81 @@
 
 			scene = new THREE.Scene();
 
-			camera = new THREE.PerspectiveCamera(50, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
-			camera.position.y = 300;
-			camera.position.z = 1500;
+			camera = new THREE.PerspectiveCamera(60, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
+			camera.position.y = 75;
+			camera.position.z = 250;
+			camera.lookAt( scene.position );
 
-			grid = new THREE.GridHelper(2000, 300, 0x555555, 0xbbbbbb);
-			grid.material.transparent = true;
-			// grid.position.y = -200;
-			scene.add(grid);
+			// grid = new THREE.GridHelper(2000, 40, 0x555555, 0xbbbbbb);
+			// grid.position.y = -150;
+			// scene.add(grid);
 
-			mesh = new THREE.Mesh(
-				// new THREE.SphereGeometry( 50, 20, 12),
-				new THREE.BoxGeometry(200, 200, 200),
-				new THREE.MeshNormalMaterial()
-			);
-			mesh.position.y = 260;
-			scene.add(mesh);
 
-			renderer = new THREE.WebGLRenderer({
-				antialias: true,
-				alpha: true
-			});
-			renderer.setClearColor(0xeeeeee, 1); // the default
-			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-			renderer.domElement.style.position = "relative";
-			container.appendChild(renderer.domElement);
+			// Ambient Light
+			var amblight = new THREE.AmbientLight( 0x444444 );
+			scene.add( amblight );
 
-			renderer.autoClear = false;
+			// directional light
+			var dLight = new THREE.DirectionalLight(0xffffff, .8 );
+			dLight.position.set( -80, 80, 80 );
+			scene.add( dLight );
 
-			controls = new THREE.OrbitControls(camera, renderer.domElement);
+			var dLightHelper = new THREE.DirectionalLightHelper( dLight, 20 );
+			scene.add( dLightHelper );
 
-			//
-			stats = new Stats();
-			container.appendChild(stats.domElement);
+			// point light
+			var pLight = new THREE.PointLight(0x0000ff, .8 ); // distance
+			pLight.position.set( 80, 80, 80 );
+			scene.add( pLight );
 
+			var pLightHelper = new THREE.PointLightHelper( pLight, 10 );
+			scene.add( pLightHelper );
+
+			// spot light
+			var sLight = new THREE.SpotLight(0xff0000, 0.8, 0, Math.PI/9, 0.4 ); // hex, intensity, distance, angle, penumbra
+			sLight.position.set( -80, 80, 80 );
+			// scene.add( sLight );
+
+			var sLightStartPosition = sLight.position.clone();
+			sLightNewPosition = sLightStartPosition.clone().multiplyScalar(1.3);
+
+			var sLightHelper = new THREE.SpotLightHelper( sLight );
+			// scene.add( sLightHelper );
+
+
+			material = new THREE.MeshPhongMaterial({ color: 0xaaaaaa, shininess: 40 });
+
+			var planeGeo = new THREE.PlaneBufferGeometry( 700, 700, 1, 1 );
+			mesh = new THREE.Mesh( planeGeo, material );
+			mesh.rotation.x = -Math.PI/2;
+			mesh.position.y = -65;
+			scene.add( mesh );
+
+			var geometry = new THREE.SphereGeometry( 60, 24, 16 );
+      mesh = new THREE.Mesh( geometry, material );
+      scene.add( mesh );
+
+			renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+      // renderer.setClearColor( 0xBBBBBB, 1 );
+      renderer.setClearColor( 0x000000, 0.2 ); // the default
+      renderer.setSize( window.innerWidth, window.innerHeight );
+
+      container.appendChild( renderer.domElement );
+
+
+      controls = new THREE.OrbitControls( camera, renderer.domElement );
+      controls.enableKeys = false;
+
+      // stats = new Stats();
+      // container.appendChild( stats.domElement );
 		}
 
-
 		function animate() {
-			mesh.rotation.x += 0.01;
-			mesh.rotation.y += 0.02;
+			// mesh.rotation.x += 0.01;
+			// mesh.rotation.y += 0.02;
 			requestAnimationFrame(animate);
 			renderer.render(scene, camera);
-			stats.update();
+			// stats.update();
 		}
 
 
