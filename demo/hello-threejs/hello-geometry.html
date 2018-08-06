@@ -107,8 +107,8 @@
 
 			controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-			stats = new Stats();
-			container.appendChild(stats.domElement);
+			// stats = new Stats();
+			// container.appendChild(stats.domElement);
 		}
 
 		function animate() {
@@ -116,7 +116,7 @@
 			// mesh.rotation.y += 0.02;
 			requestAnimationFrame(animate);
 			renderer.render(scene, camera);
-			stats.update();
+			// stats.update();
 		}
 
 

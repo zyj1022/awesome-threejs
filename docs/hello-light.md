@@ -118,3 +118,9 @@ scene.add( spotLight );
 要想体现材质等真实性，光体现了很主要的效果，如果没有光，都是黑漆漆的，我们眼睛估计无法分辨物体的形态。
 
 走夜路，打手电，通过光我们能分辨路上的石头、树枝、坑洞等。
+
+-------
+
+本文部分内容参照及引用：
+
+> [three.js docs](https://threejs.org/docs/index.html#api/lights/AmbientLight)

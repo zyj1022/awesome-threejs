@@ -2,6 +2,8 @@
 
 > [Demo查看](../demo/hello-threejs/hello-geometry.html)
 
+![geometry](./images/geometry.png)
+
 ## 几何模型(Geometries)
 
 几何形状（Geometry）最主要的功能是储存了一个物体的顶点信息。WebGL需要程序员指定每个顶点的位置，而在Three.js中，可以通过指定一些特征来创建几何形状，例如使用半径创建一个球体，从而省去程序员一个个指定顶点的工作量。
