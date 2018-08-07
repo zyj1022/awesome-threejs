@@ -2,7 +2,7 @@
 
 > [Demo查看](../demo/hello-threejs/hello-geometry.html)
 
-![geometry](./images/geometry.png)
+![geometry](./images/geometry.png) 
 
 ## 几何模型(Geometries)
 
