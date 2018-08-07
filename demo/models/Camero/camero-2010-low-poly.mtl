@@ -1,0 +1,13 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl Carcamero_ma
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.878431 0.878431 0.878431
+Ks 0.049804 0.049804 0.049804
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump camero map.png
+map_Kd camero map.png

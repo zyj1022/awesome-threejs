@@ -4,19 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>My-threejs-test</title>
+	<title>hello-loader</title>
 	<style>
 		body {
 			margin: 0;
 			overflow: hidden;
 		}
 	</style>
-	<script type="text/javascript" src="libs/three.js"></script>
-	<script type="text/javascript" src="libs/OrbitControls.js"></script>
-	<script type="text/javascript" src="libs/Detector.js"></script>
-	<script type="text/javascript" src="libs/stats.js"></script>
-	<script type="text/javascript" src="libs/loaders/MTLLoader.js"></script>
-	<script type="text/javascript" src="libs/loaders/OBJLoader.js"></script>
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+	<script type="text/javascript" src="../../libs/Detector.js"></script>
+	<script type="text/javascript" src="../../libs/stats.js"></script>
 </head>
 
 <body>
@@ -48,7 +46,7 @@
 			grid.position.y = -150;
 			scene.add(grid);
 
-			//------------- start 添加多角度灯光 ------------
+      //------------- start 添加多角度灯光 ------------
 			var ambLight = new THREE.AmbientLight(0x444444);
 			scene.add(ambLight);
 
@@ -82,49 +80,15 @@
 				side: THREE.DoubleSide // 双面绘制
 			});
 
-			// json 格式文件加载
+			//
 			var objloader = new THREE.ObjectLoader();
-			objloader.load( "./demo/models/teapot.json", function( group ) {
+			objloader.load( "../models/teapot.json", function( group ) {
 				mesh = group.children[0];
 				mesh.material = material;
 				mesh.scale.set(4,4,4);
 				mesh.position.y = -30;
 				scene.add( mesh );
 			});
-
-			// obj 格式文件加载
-			/*var loader = new THREE.OBJLoader();
-			loader.load('./demo/models/teapot.obj', function(obj) {
-					obj.traverse(function(child) {
-							if (child instanceof THREE.Mesh) {
-									child.material = new THREE.MeshLambertMaterial({
-											color: 0xffff00,
-											side: THREE.DoubleSide
-									});
-							}
-					});
-					mesh = obj;
-					mesh.position.y = -30;
-					mesh.scale.set(30,30,30);
-					scene.add(obj);
-			});*/
-
-			// 建模软件中设置材质
-			/* var mtlLoader = new THREE.MTLLoader();
-			mtlLoader.load('./demo/models/teapot.mtl', function(materials) {
-					materials.preload();
-					// model loader
-					var objLoader = new THREE.OBJLoader();
-					objLoader.setMaterials(materials);
-					objLoader.load('./demo/models/teapot.obj', function (obj) {
-							if (obj.children.length > 0) {
-								mesh = obj;
-								mesh.position.y = -30;
-								mesh.scale.set(30,30,30);
-								scene.add(obj);
-							}
-					});
-			});*/
 
 			renderer = new THREE.WebGLRenderer({
 				antialias: true,
@@ -148,14 +112,14 @@
 
 		function animate() {
 			requestAnimationFrame(animate);
-			var delta = clock.getDelta();
-			if (mesh) {
-				mesh.rotation.y -= 0.5 * delta;
-			}
-			// mesh.rotation.y += 0.01;
-	    // if (mesh.rotation.y > Math.PI * 2) {
-	    //     mesh.rotation.y -= Math.PI * 2;
-	    // }
+			// var delta = clock.getDelta();
+			// if (mesh) {
+			// 	mesh.rotation.y -= 0.5 * delta;
+			// }
+			mesh.rotation.y += 0.01;
+	    if (mesh.rotation.y > Math.PI * 2) {
+	        mesh.rotation.y -= Math.PI * 2;
+	    }
 			stats.update();
 			controls.update();
 			renderer.render(scene, camera);
