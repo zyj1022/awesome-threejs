@@ -108,3 +108,10 @@ mtlLoader.load('./demo/models/teapot.mtl', function(materials) {
     });
 });
 ```
+
+
+------
+
+本文部分内容参照及引用：
+
+> [Three.js入门指南](http://www.ituring.com.cn/book/1272)

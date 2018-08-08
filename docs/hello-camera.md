@@ -20,12 +20,17 @@
 ## 示例
 
 - [正交投影示例](../demo/hello-threejs/hello-OrthographicCamera.html)
+
+![orthographicCamera](./images/orthographicCamera.png) 
+
 - [透视投影示例](../demo/hello-threejs/hello-PerspectiveCamera.html)
+
+![perspectiveCamera](./images/perspectiveCamera.png)
 
 ------
 
 本文部分内容参照及引用：
 
 > [Three.js入门指南](http://www.ituring.com.cn/book/1272)
-> 
+>
 > [threejs-intro](http://davidscottlyons.com/threejs-intro/)

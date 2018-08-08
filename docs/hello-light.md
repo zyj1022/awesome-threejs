@@ -19,12 +19,19 @@ Light 是 Threejs 里所有光源的基类
 
 ### 各种派生类
 
-- AmbientLight 环境光
-- DirectionalLight 平行光
-- HemisphereLight 半球光
-- PointLight 点光源
-- RectAreaLight 矩形区域光源
-- SpotLight 聚光源
+基础光源：
+
+- AmbientLight 环境光 - 它的颜色会添加到整个场景和所有对象的当前颜色上
+- DirectionalLight 平行光 — 例如：太阳光
+- PointLight 点光源 — 空间中的一点，朝所有的方向发射光线
+- SpotLight 聚光源 - 聚光灯是由点光源发出，这种类型的光也可以产生投影，有聚光的效果
+
+特殊光源：
+
+- HemisphereLight 半球光 - 可以为室内场景创建更加自然的光照效果，模拟反光面和光线微弱的天气
+- RectAreaLight 矩形区域光源 - 这种光从一个矩形面均匀地发射，可以用来模拟明亮的窗户或者带状的照明；可以产生投影
+- 
+
 
 #### 1、AmbientLight 环境光
 

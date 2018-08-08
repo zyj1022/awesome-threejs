@@ -37,3 +37,10 @@ document.body.appendChild( stats.domElement );
 ```
 
 调用stats.update()函数来统计时间和帧数 `stats.update();` 到 `renderer` 执行动画到时候即可。
+
+
+------
+
+本文部分内容参照及引用：
+
+> [Three.js入门指南](http://www.ituring.com.cn/book/1272)

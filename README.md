@@ -18,7 +18,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 - [x] [创建各种几何形状](./docs/hello-geometry.md)
 - [x] [光影之谜](./docs/hello-light.md)
 - [x] [给创建的物体赋予材质](./docs/hello-material.md)
-- [ ] [让物体动起来](./docs/hello-tween.md)
+- [x] [让物体动起来](./docs/hello-tween.md)
 - [x] [运动3D物体的性能监测](./docs/hello-stats.md)
 - [x] [加载外部3D模型](./docs/hello-loader.md)
 
@@ -83,6 +83,8 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [CESIUM 3D 地球](http://cesiumjs.org/index.html)
 
 ### 在线DEMO
+
+* [egraether - Demos](http://egraether.com)
 * [David Lyons - 3D Artist](http://davidscottlyons.com)
 * [83个含注释Demo](https://stemkoski.github.io/Three.js/)
 * [workshop](http://workshop.chromeexperiments.com)

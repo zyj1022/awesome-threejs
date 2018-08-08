@@ -56,7 +56,7 @@
 			cameraRig.position.set(-300, 400, 500);
 			scene.add(cameraRig);
 
-			grid = new THREE.GridHelper(2000, 300, 0x555555, 0xbbbbbb);
+			grid = new THREE.GridHelper(1000, 40, 0x555555, 0xbbbbbb);
 			grid.material.transparent = true;
 			// grid.position.y = -200;
 			scene.add(grid);
@@ -83,8 +83,8 @@
 			controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 			//
-			stats = new Stats();
-			container.appendChild(stats.domElement);
+			// stats = new Stats();
+			// container.appendChild(stats.domElement);
 
 		}
 
@@ -92,7 +92,7 @@
 		function animate() {
 			requestAnimationFrame(animate);
 			render();
-			stats.update();
+			// stats.update();
 		}
 
 		function render() {
