@@ -21,6 +21,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 - [x] [让物体动起来](./docs/hello-tween.md)
 - [x] [运动3D物体的性能监测](./docs/hello-stats.md)
 - [x] [加载外部3D模型](./docs/hello-loader.md)
+- [x] [有趣的着色器](./docs/hello-shaders.md)
 
 
 #### 踩坑经验
@@ -44,6 +45,12 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ……loading……
 
+## Shader相关资料
+
+* [The Book of Shaders](https://thebookofshaders.com/?lan=ch)—一本关于 Fragment Shaders（片段着色器）的入门指南
+* [The Book of Shaders Editor](http://editor.thebookofshaders.com)- Shaders 在线编辑器
+* [Inigo Quilez](http://www.iquilezles.org/www/index.htm) - 有关计算机图形学、着色器的博客代码示例
+* [Introducing Shaders](https://openframeworks.cc/ofBook/chapters/shaders.html)
 
 #### 网上收集资料
 
@@ -76,6 +83,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [行星素材](http://planetpixelemporium.com/earth.html)
 * [Clara.io 3D素材](https://clara.io/library)
 * [Shadertoy 着色器](https://www.shadertoy.com)
+* [各种着色器 demo 文章](http://www.iquilezles.org/www/index.htm)
 
 ## 在线站点
 
@@ -106,4 +114,3 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * 《Three.js开发指南》— [在线Demo案例](http://www.skyliu.top/three-js/)
 * [《Three.js入门指南》](http://www.ituring.com.cn/book/1272)—[书例代码](http://zhangwenli.com/ThreeExample.js/)
 * [Three.js入门教程](http://www.cnblogs.com/yiyezhai/category/447410.html) — 这是对国外一份教程的翻译，一共六篇文章。讲解不多，更多的是展示各个基本功能怎么用。更适合有一些图形基础的同学
-* [The Book of Shaders](https://thebookofshaders.com/?lan=ch)—一本关于 Fragment Shaders（片段着色器）的入门指南

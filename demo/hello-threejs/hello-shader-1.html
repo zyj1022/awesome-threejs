@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>My-Threejs</title>
+	<title>hello-shader-1</title>
 	<style>
 		body {
 			margin: 0;
@@ -12,11 +12,10 @@
 		}
 	</style>
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-	<script type="text/javascript" src="libs/three.js"></script>
-	<script type="text/javascript" src="libs/OrbitControls.js"></script>
-	<script type="text/javascript" src="libs/Detector.js"></script>
-	<script type="text/javascript" src="libs/stats.js"></script>
-	<script type="text/javascript" src="libs/tween.js"></script>
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+	<script type="text/javascript" src="../../libs/Detector.js"></script>
+
 </head>
 
 <body>
@@ -33,6 +32,7 @@
 	<script type="x-shader/x-fragment" id="fragmentshader">
 
 		uniform float u_time;
+
 		varying vec2 vUv; // 和顶点着色器中一样的变量 vUv
 		void main() {
 		    gl_FragColor = vec4(vUv.x, vUv.y, abs(sin(u_time)), 1.0);
@@ -105,7 +105,7 @@
 		}
 
 		function render() {
-			uniforms.u_time.value += 0.02;
+			uniforms.u_time.value += 0.05;
 			renderer.render(scene, camera);
 		}
 

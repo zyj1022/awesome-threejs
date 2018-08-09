@@ -2,6 +2,8 @@
 
 > [Demo查看](../demo/hello-threejs/hello-world.html)
 
+![Hello world](./images/hello-world.png)
+
 ## 准备工作
 
 新建空白 html 页面，引入 three.js，及页面元素准备。
@@ -115,6 +117,16 @@ function render() {
 
 
 ## 总结
+
+Threejs开发过程初步可归纳为
+
+1、设置照相机 `camera = new THREE.Camera();` 用于观察物体
+2、设置场景 `scene = new THREE.Scene()` 用于承载物体
+3、建立物体 `geometry = new THREE.CubeGeometry(200, 200, 200);`
+4、创建网格 `mesh = new THREE.Mesh(geometry, material)`
+5、渲染呈现 `renderer.render(scene, camera)`
+
+当然还有灯光、动画、材质、控制场景内物体等其他内容，在此不赘述，后续逐步学习。
 
 以上，如果使用过flash或者maya等软件等话，相信对以上场景、相机、渲染、灯光等会比较容易理解。
 在这里可以联想为在3D软件里创建一个物体，当然软件所有操作及效果是需要我们用代码来实现。
