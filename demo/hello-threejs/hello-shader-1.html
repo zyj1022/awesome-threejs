@@ -15,6 +15,8 @@
 	<script type="text/javascript" src="../../libs/three.js"></script>
 	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
 	<script type="text/javascript" src="../../libs/Detector.js"></script>
+  <script type="text/javascript" src="../../libs/dat.gui.js"></script>
+	<script type="text/javascript" src="../../libs/stats.js"></script>
 
 </head>
 
@@ -102,6 +104,26 @@
 
 			onWindowResize();
 			window.addEventListener('resize', onWindowResize, false);
+
+			setupGUI();
+			setupStats()
+		}
+
+		function setupGUI() {
+				effectController = {
+					rotationSpeed: 0.02,
+				};
+				var h;
+				var gui = new dat.GUI();
+				// h = gui.addFolder( "Rotation speed control" );
+				gui.add( effectController, "rotationSpeed", 0.0, 1.0, 0.02 ).name( "rotationSpeed" ).onChange( render );
+		}
+
+		function setupStats() {
+			stats = new Stats();
+			stats.setMode(1); // 0: fps, 1: ms
+			stats.domElement.style.position = 'absolute';
+			document.body.appendChild( stats.domElement );
 		}
 
 		function render() {
@@ -113,9 +135,10 @@
 			requestAnimationFrame(animate);
 			var delta = clock.getDelta();
 			if (mesh) {
-				mesh.rotation.y -= 0.5 * delta;
+				mesh.rotation.y -= effectController.rotationSpeed
 			}
 			controls.update();
+			stats.update();
 			render();
 		}
 
