@@ -23,6 +23,11 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 - [x] [加载外部3D模型](./docs/hello-loader.md)
 - [x] [有趣的着色器](./docs/hello-shaders.md)
 
+## 进阶教程
+
+- [x] [OpenGL GLSL 基础语法和函数](./docs/glsl/glsl-syntax.md)
+- [x] [GLSL 中文手册](./docs/glsl/glsl-cookbook.md)
+
 
 #### 踩坑经验
 
@@ -41,12 +46,9 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
   }
   ```
 
-## 进阶实例
-
-……loading……
-
 ## Shader相关资料
 
+* [LearnOpenGL-CN](https://learnopengl-cn.readthedocs.io/zh/latest/)
 * [The Book of Shaders](https://thebookofshaders.com/?lan=ch)—一本关于 Fragment Shaders（片段着色器）的入门指南
 * [The Book of Shaders Editor](http://editor.thebookofshaders.com)- Shaders 在线编辑器
 * [Inigo Quilez](http://www.iquilezles.org/www/index.htm) - 有关计算机图形学、着色器的博客代码示例

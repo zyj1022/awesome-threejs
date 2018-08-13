@@ -4,6 +4,27 @@
 
 ![Hello world](./images/hello-world.png)
 
+## Threejs介绍
+
+threejs 最早是 [Ricardo Cabello(一个西班牙小伙)](https://github.com/mrdoob) 在 GitHub上发布的一个基于webgl的3D图形库。
+
+当然,除了Threejs还有其他类似3D图形库比如:
+
+- [Babylon.js](https://github.com/BabylonJS/Babylon.js)
+- [PhiloGL](https://github.com/senchalabs/philogl)
+- [GLGE](https://github.com/supereggbert/GLGE)
+- [scenejs](https://github.com/xeolabs/scenejs)
+- [osgjs](https://github.com/cedricpinson/osgjs)
+- [c3dl](https://github.com/senchalabs/c3dl)
+
+**threejs带来了什么？**
+
+3D绘图通常来说是比较复杂带工作，用到glsl到很多知识，用js直接调用操作，非常复杂且低效，
+
+这个时候 threejs出现了，使用threejs封装好到功能，可以很方便快速到创造一些简单到场景。
+
+下面我们就来试着写第一个hello world!
+
 ## 准备工作
 
 新建空白 html 页面，引入 three.js，及页面元素准备。
