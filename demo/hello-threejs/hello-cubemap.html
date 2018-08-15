@@ -4,19 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>My-Threejs</title>
+	<title>hello-cubemap</title>
 	<style>
 		body {
 			margin: 0;
 			overflow: hidden;
 		}
 	</style>
-	<script type="text/javascript" src="libs/three.js"></script>
-	<script type="text/javascript" src="libs/OrbitControls.js"></script>
-	<script type="text/javascript" src="libs/Detector.js"></script>
-	<script type="text/javascript" src="libs/stats.js"></script>
-	<script type="text/javascript" src="libs/tween.js"></script>
-	<script type="text/javascript" src="libs/dat.gui.js"></script>
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+	<script type="text/javascript" src="../../libs/Detector.js"></script>
+	<script type="text/javascript" src="../../libs/stats.js"></script>
 </head>
 
 <body>
@@ -62,7 +60,7 @@
 		}
 
 		function cubeMap() {
-			var path = "./demo/images/Bridge/";
+			var path = "../images/Bridge/";
 			var format = '.jpg';
 			var urls = [
 				path + 'posx' + format, path + 'negx' + format,
