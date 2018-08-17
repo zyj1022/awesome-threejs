@@ -169,6 +169,9 @@
       //   object.material.uniforms.sineTime.value = -0.2529394934651766;
       // } else {
       // console.log(time);
+			object.rotation.x = time * 0.0005;
+			object.rotation.y = time * 0.0005;
+			object.rotation.z = time * 0.0005;
 
 			if (time >= 37980) {
 				object.material.uniforms.sineTime.value = -0.24049980069174645;
@@ -181,8 +184,6 @@
 				object.rotation.y = time * 0.0002;
 				object.material.uniforms.time.value = time * 0.006;
 				object.material.uniforms.sineTime.value = Math.sin(object.material.uniforms.time.value * 0.07);
-			} else {
-				object.rotation.y = time * 0.0002;
 			}
 
 			renderer.render(scene, camera);

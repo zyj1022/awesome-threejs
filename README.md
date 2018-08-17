@@ -23,6 +23,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 - [x] [加载外部3D模型](./docs/hello-loader.md)
 - [x] [有趣的着色器](./docs/hello-shaders.md)
 - [x] [创建自己的全景图](./docs/hello-cubemap.md)
+- [x] [obj、mtl文件格式详解](./docs/hello-obj-mtl.md)
 
 ## 进阶教程
 
