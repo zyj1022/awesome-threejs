@@ -109,7 +109,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [tunnel-effect](http://learningthreejs.com/blog/2012/01/11/tunnel-effect/)
 * [Altered earth](http://alteredqualia.com/xg/examples/earth_bathymetry.html)
 
-## 相关书籍资料
+## 相关书籍资料 18382079109
 
 收集整理学习资料。
 
@@ -118,3 +118,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * 《Three.js开发指南》— [在线Demo案例](http://www.skyliu.top/three-js/)
 * [《Three.js入门指南》](http://www.ituring.com.cn/book/1272)—[书例代码](http://zhangwenli.com/ThreeExample.js/)
 * [Three.js入门教程](http://www.cnblogs.com/yiyezhai/category/447410.html) — 这是对国外一份教程的翻译，一共六篇文章。讲解不多，更多的是展示各个基本功能怎么用。更适合有一些图形基础的同学
+
+## 同类库探索
+
+* [blend4web](https://github.com/TriumphLLC/Blend4Web)

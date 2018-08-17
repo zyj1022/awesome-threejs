@@ -1,0 +1,196 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>My-Threejs</title>
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+	<script type="text/javascript" src="../../libs/Detector.js"></script>
+	<script type="text/javascript" src="../../libs/stats.js"></script>
+	<script type="text/javascript" src="../../libs/tween.js"></script>
+	<script type="text/javascript" src="../../libs/dat.gui.js"></script>
+</head>
+
+<body>
+
+	<script type="text/javascript">
+		if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+		var container, stats;
+		var camera, scene, renderer, mesh, geometry, grid, group, controls, material;
+		var uniforms;
+		var reflectionCube, refractionCube;
+		// ---------
+
+		init();
+		animate();
+
+		function init() {
+
+			container = document.createElement('div');
+			document.body.appendChild(container);
+
+			scene = new THREE.Scene();
+			scene.background = new THREE.Color(0xFFFFFF);
+
+			camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10);
+			camera.position.set(0.2, 0, 2);
+
+			setupGeometry()
+
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+			// renderer.setClearColor(0x000000, 0);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			container.appendChild(renderer.domElement);
+
+			window.addEventListener('resize', onWindowResize, false);
+
+			setupControls()
+			setupStats();
+		}
+
+
+		function setupGeometry() {
+			// geometry
+			 var triangles = 1;
+			 var instances = 30000;
+			 var geometry = new THREE.InstancedBufferGeometry();
+			 geometry.maxInstancedCount = instances;
+
+			 var vertices = new THREE.BufferAttribute(new Float32Array(triangles * 3 * 3), 3);
+			 vertices.setXYZ(0, 0.01, -0.01, 0);
+			 vertices.setXYZ(1, -0.01, 0.01, 0);
+			 vertices.setXYZ(2, 0, 0, 0.01);
+			 geometry.addAttribute('position', vertices);
+
+			 var offsets = new THREE.InstancedBufferAttribute(new Float32Array(instances * 3), 3, 1);
+			 for (var i = 0, ul = offsets.count; i < ul; i++) {
+				 offsets.setXYZ(i, 0.1 + Math.random() * 1, 0.1 + Math.random() * 1, 0.1 + Math.random() * 1);
+				 // offsets.setXYZ( i, Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5 );
+			 }
+			 geometry.addAttribute('offset', offsets);
+
+			 var colors = new THREE.InstancedBufferAttribute(new Float32Array(instances * 4), 4, 1);
+			 for (var _i = 0, _ul = colors.count; _i < _ul; _i++) {
+				 // if(i < ul * .98) {
+				 //   colors.setXYZW( i, 1, Math.random(), 0, 1 );//RGBA
+				 // } else {
+				 //   colors.setXYZW( i, Math.random() - .5, 1, 0, 1 );//RGBA
+				 // }
+				 // colors.setXYZW( i, Math.random() - .5, 1, 0, 1 );//RGBA
+				 colors.setXYZW(_i, 255, Math.random(), 0, 1); //RGBA
+			 }
+			 geometry.addAttribute('color', colors);
+
+			 var vector = new THREE.Vector4();
+			 var orientationsStart = new THREE.InstancedBufferAttribute(new Float32Array(instances * 4), 4, 1);
+			 for (var _i2 = 0, _ul2 = orientationsStart.count; _i2 < _ul2; _i2++) {
+				 vector.set(Math.random() * 4 - 2, Math.random() * 4 - 2, Math.random() * 4 - 2, Math.random() * 4 - 2);
+				 vector.normalize();
+				 orientationsStart.setXYZW(_i2, vector.x, vector.y, vector.z, vector.w);
+			 }
+			 geometry.addAttribute('orientationStart', orientationsStart);
+
+			 var orientationsEnd = new THREE.InstancedBufferAttribute(new Float32Array(instances * 4), 4, 1);
+			 for (var _i3 = 0, _ul3 = orientationsEnd.count; _i3 < _ul3; _i3++) {
+				 vector.set(Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1);
+				 vector.normalize();
+				 orientationsEnd.setXYZW(_i3, vector.x, vector.y, vector.z, vector.w);
+			 }
+			 geometry.addAttribute('orientationEnd', orientationsEnd);
+
+			// material
+      material = new THREE.RawShaderMaterial({
+        uniforms: {
+          time: { value: 1.0 },
+          sineTime: { value: 1.0 }
+        },
+        // vertexShader: document.getElementById( 'vertexShader' ).textContent,
+        // fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+        vertexShader: '\n      precision highp float;\n      uniform float sineTime;\n      uniform mat4 modelViewMatrix;\n      uniform mat4 projectionMatrix;\n      attribute vec3 position;\n      attribute vec3 offset;\n      attribute vec4 color;\n      attribute vec4 orientationStart;\n      attribute vec4 orientationEnd;\n      varying vec3 vPosition;\n      varying vec4 vColor;\n      void main() {\n        vPosition = offset * max(abs(sineTime * 2.0 + 1.0), 0.5) + position;\n        vec4 orientation = normalize(mix(orientationEnd, orientationStart, sineTime));\n        vec3 vcV = cross(orientation.xyz, vPosition);\n        vPosition = vcV * (2.0 * orientation.w) + (cross(orientation.xyz, vcV) * 2.0 + vPosition);\n        vColor = color;\n        gl_Position = projectionMatrix * modelViewMatrix * vec4( vPosition, 2.0 );\n      }\n    ',
+        fragmentShader: '\n      precision highp float;\n      uniform float time;\n      varying vec3 vPosition;\n      varying vec4 vColor;\n      void main() {\n        vec4 color = vec4( vColor );\n        gl_FragColor = color;\n      }\n    ',
+        side: THREE.DoubleSide,
+        transparent: true,
+        depthTest: false
+      });
+
+			mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+		}
+
+		function setupLight() {
+			var ambient = new THREE.AmbientLight(0xffffff);
+			scene.add(ambient);
+
+			var pointLight = new THREE.PointLight(0xffffff, 2);
+			scene.add(pointLight);
+		}
+
+		function setupControls() {
+			controls = new THREE.OrbitControls(camera);
+			// controls.autoRotate = true;
+			// controls.autoRotateSpeed = 2;
+			controls.enableKeys = false;
+		}
+
+		function setupStats() {
+			stats = new Stats();
+			stats.setMode(1); // 0: fps, 1: ms
+			stats.domElement.style.position = 'absolute';
+			document.body.appendChild(stats.domElement);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render()
+			controls.update();
+			stats.update();
+		}
+
+		function render() {
+			var time = performance.now() + 26500;
+      // let time = 1;
+      var object = scene.children[0];
+      // object.rotation.x = time * 0.0005;
+      // if(time >= 9710) {
+      //   object.material.uniforms.sineTime.value = -0.2529394934651766;
+      // } else {
+      // console.log(time);
+			object.rotation.x = time * 0.0005;
+			object.rotation.y = time * 0.0005;
+			object.rotation.z = time * 0.0005;
+
+			if (time >= 37980) {
+				object.material.uniforms.sineTime.value = -0.24049980069174645;
+			} else if (time >= 37000) {
+				object.rotation.y = time * 0.0002;
+				object.material.uniforms.time.value = time * 0.006;
+				object.material.uniforms.sineTime.value = Math.sin(object.material.uniforms.time.value * 0.07);
+
+			} else if (time >= 28000) {
+				object.rotation.y = time * 0.0002;
+				object.material.uniforms.time.value = time * 0.006;
+				object.material.uniforms.sineTime.value = Math.sin(object.material.uniforms.time.value * 0.07);
+			}
+
+			renderer.render(scene, camera);
+		}
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+	</script>
+</body>
+
+</html>
