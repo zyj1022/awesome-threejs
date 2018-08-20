@@ -1,0 +1,146 @@
+ul,li {margin: 0;padding: 0; list-style: none;}
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #000 url(../images/background-1280-png.png) no-repeat;
+    background-size: cover;
+  }
+
+  #main_canvas_container {
+    width: 100%;
+    height: 100%;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    line-height: 80px;
+    z-index: 999;
+    background: url(../images/bg-title-1280.png) #111 no-repeat;
+    background-size: cover;
+  }
+  header .logo {
+    position: absolute;
+    top: 23px
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+  .brand {color: #d01616; margin-left: 38px;}
+.container {
+  width: 1280px;
+  margin: 0 auto;
+
+}
+.main-container {
+  padding-top: 80px;
+}
+
+.full-section {
+  min-width: 1280px;
+  min-height: calc(100% - 100px)
+}
+
+.customize-section {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 600px;
+  height: calc(100% - 30px)
+}
+
+.customize-section .step-container, .customize-section .preview-container {
+  height: 100%;
+  position: relative
+}
+
+.customize-section .step-container {
+  padding-right: 412px
+}
+
+.customize-section .content-box {
+  position: relative;
+  height: 100%
+}
+
+.customize-section .sidebar-box {
+  position: fixed;
+  top: 80px;
+  right: 22px;
+  width: 390px;
+  bottom: 40px;
+  z-index: 15;
+  background: #ccc;
+}
+.customize-section .step-nav {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top:80px;
+  width: 100%;
+  background: url(../images/bg-title-1280.png) #111 repeat;
+  background-size: cover
+}
+
+.customize-section .container {
+  width: 1184px
+}
+
+.customize-section .step-bar {
+  margin-left: 140px;
+  padding: 0 75px;
+  background-color: #111;
+  background: url(../images/bg_title_navigation.png) 0 0 no-repeat
+}
+
+.customize-section .step-bar li {
+  display: inline-block;
+  margin-right: 30px;
+  padding-top: 9px
+}
+
+.customize-section .step-bar a {
+  width: 130px;
+  display: inline-block;
+  opacity: 0.8;
+  font-size: 18px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #fff
+}
+
+.customize-section .step-bar a.active {
+  opacity: 1;
+  font-weight: bold;
+  border-bottom: solid 3px #d01616
+}
+
+.customize-section .step-bar img {
+  width: 16px;
+  height: 10.9px;
+  margin-right: 10px
+}
+
+.sidebar-box .handler {
+  padding: 40px;
+}
+
+.handler a {
+  display: block;
+  padding: 15px;
+  background: #eee;
+  margin-bottom: 20px;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #bfbfbf;
+  border-radius: 5px;
+}
+
+.handler a:hover {
+  background: #e0e0e0;
+}

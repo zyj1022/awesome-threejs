@@ -122,3 +122,4 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 ## 同类库探索
 
 * [blend4web](https://github.com/TriumphLLC/Blend4Web)
+   * [Demo案例 - 仿机械革命源计划-私人定制](./demo/blend4web/b4w-demo.html)

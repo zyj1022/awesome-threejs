@@ -1,18 +1,47 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>b4w-demo</title>
-  <style>
-		body {
-			margin: 0;
-			overflow: hidden;
-		}
-	</style>
-	<script type="text/javascript" src="js/b4w.min.js"></script>
+  <title>b4w-bto.mechrevo.com-demo</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script type="text/javascript" src="js/b4w.min.js"></script>
+  <script type="text/javascript" src="js/camera_anim.js"></script>
 </head>
+
 <body>
-  
+  <header class="header">
+    <div class="container">
+      <img class="logo" src="./images/title_logo.png">
+      <span class="brand">机械革命源计划-私人定制</span>
+    </div>
+  </header>
+
+  <div class="full-section customize-section">
+    <div class="step-nav">
+      <div class="container">
+        <ul class="step-bar">
+          <li class="step1"><a>机型选择 </a></li>
+          <li class="step2"><a class="">性能定制</a></li>
+          <li class="step3"><a class="active">颜值定制</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="step-container">
+      <div class="content-box">
+        <div id="main_canvas_container"></div>
+      </div>
+      <div class="sidebar-box">
+        <div class="handler">
+          <a href="javascript:;" onclick="changeCover()">外壳定制</a>
+          <a href="javascript:;">键盘面定制</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+   <script type="text/javascript" src="js/main.js"></script>
 </body>
+
 </html>
