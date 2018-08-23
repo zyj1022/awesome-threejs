@@ -61,24 +61,19 @@ b4w.register("Computer", function(exports, require) {
 
     m_app.enable_camera_controls(false, false, false, null, true);
 
-    var camobj = m_scenes.get_active_camera();
-    init_camera_animation(camobj);
+    var camera = m_scenes.get_active_camera();
+    var cameraName = m_scenes.get_object_by_name("B_part");
 
-    // place your code here
+    console.log('cameraName', cameraName);
 
-    // var camera = m_scenes.get_active_camera();
-    // var cameraName = m_scenes.get_object_by_name("B_part");
-    //
+    m_camera_anim.is_auto_rotate();
     // m_camera_anim.move_camera_to_point(camera, cameraName, 10,1, moveCB)
-    //
-    // function moveCB() {
-    //    console.log('2222');
-    // }
+
+    function moveCB() {
+       console.log('2222');
+    }
   }
 
-  function init_camera_animation(camobj) {
-    
-  }
 
 
   exports.changeCover = function() {

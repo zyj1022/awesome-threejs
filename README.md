@@ -55,6 +55,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [The Book of Shaders Editor](http://editor.thebookofshaders.com)- Shaders 在线编辑器
 * [Inigo Quilez](http://www.iquilezles.org/www/index.htm) - 有关计算机图形学、着色器的博客代码示例
 * [Introducing Shaders](https://openframeworks.cc/ofBook/chapters/shaders.html)
+* [pixelshaders](http://pixelshaders.com/) - 基础代码示例
 
 #### 网上收集资料
 
@@ -122,4 +123,4 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 ## 同类库探索
 
 * [blend4web](https://github.com/TriumphLLC/Blend4Web)
-   * [Demo案例 - 仿机械革命源计划-私人定制](./demo/blend4web/b4w-demo.html)
+   * [Demo案例 - 仿机械革命源计划-私人定制](http://zyj1022.github.io/demos/blend4web/index.html)
