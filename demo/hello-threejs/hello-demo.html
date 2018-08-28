@@ -5,19 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>My-Threejs</title>
-	<link rel="stylesheet" type="text/css" href="./demo/css/style.css" />
-	<script type="text/javascript" src="libs/three.js"></script>
-	<script type="text/javascript" src="libs/OrbitControls.js"></script>
-	<script type="text/javascript" src="libs/Detector.js"></script>
-	<script type="text/javascript" src="libs/stats.js"></script>
-	<script type="text/javascript" src="libs/tween.js"></script>
-	<script type="text/javascript" src="libs/dat.gui.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+	<script type="text/javascript" src="../../libs/Detector.js"></script>
+	<script type="text/javascript" src="../../libs/stats.js"></script>
+	<script type="text/javascript" src="../../libs/tween.js"></script>
+	<script type="text/javascript" src="../../libs/dat.gui.js"></script>
 
-	<script type="text/javascript" src="libs/loaders/MTLLoader.js"></script>
-	<script type="text/javascript" src="libs/loaders/OBJLoader.js"></script>
-	<script type="text/javascript" src="libs/loaders/LoaderSupport.js"></script>
-	<script type="text/javascript" src="libs/loaders/OBJLoader2.js"></script>
-	<script type="text/javascript" src="libs/loaders/STLLoader.js"></script>
+	<script type="text/javascript" src="../../libs/loaders/MTLLoader.js"></script>
+	<script type="text/javascript" src="../../libs/loaders/OBJLoader.js"></script>
+	<script type="text/javascript" src="../../libs/loaders/LoaderSupport.js"></script>
+	<script type="text/javascript" src="../../libs/loaders/OBJLoader2.js"></script>
+	<script type="text/javascript" src="../../libs/loaders/STLLoader.js"></script>
 </head>
 
 <body>
@@ -143,7 +143,7 @@
 			scene.remove(mesh)
 			// json 格式文件加载
 			var objloader = new THREE.ObjectLoader();
-			objloader.load( "./demo/models/teapot.json", function( group ) {
+			objloader.load( "../models/teapot.json", function( group ) {
 				mesh = group.children[0];
 				mesh.material = material;
 				mesh.scale.set(4,4,4);
@@ -157,7 +157,7 @@
 			// obj 格式文件加载
 			scene.remove(mesh)
 			var loader = new THREE.OBJLoader();
-			loader.load('./demo/models/monkey.obj', function(obj) {
+			loader.load('../models/monkey.obj', function(obj) {
 					obj.traverse(function(child) {
 							if (child instanceof THREE.Mesh) {
 									child.material = new THREE.MeshLambertMaterial({
@@ -177,12 +177,12 @@
 			// 建模软件中设置材质
 			scene.remove(mesh)
 			var mtlLoader = new THREE.MTLLoader();
-			mtlLoader.load('./demo/models/monkey.mtl', function(materials) {
+			mtlLoader.load('../models/monkey.mtl', function(materials) {
 					// model loader
 					materials.preload();
 					var objLoader = new THREE.OBJLoader()
 							.setMaterials(materials)
-							.load('./demo/models/monkey.obj', function (obj) {
+							.load('../models/monkey.obj', function (obj) {
 									mesh = obj;
 									mesh.position.y = -30;
 									mesh.position.z = -120;

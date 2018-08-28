@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+ul,li {margin: 0;padding: 0; list-style: none;}
+
+.zk-wrap {
+
+}
+
+.zk-header {
+  height: 80px;
+  width: 100%;
+  background: #000;
+  position: fixed;
+  top:0;
+}
+.zk-main {
+ margin-top: 80px;
+ position: relative;
+ height: 100%;
+}
+
+.zk-three {
+  width: 70%;
+  height: 100%;
+  background: #fff;
+  padding-right: 15%;
+  left: 0;
+  position: absolute;
+}
+.zk-three canvas {width:100%;}
+.zk-handler {
+  position: absolute;
+  width: 15%;
+  min-height: 600px;
+  background: #eee;
+  right:0;
+  height: 100%;
+  padding-top: 20px;
+}
+
+.zk-handler li {padding: 10px 30px; }
+.zk-handler a {color:#fff; text-align: center;border-radius: 4px;text-decoration: none;display: block;background: #1890ff;padding:10px 20px}
+.zk-handler a:hover {background: #096dd9;}
