@@ -42,6 +42,12 @@
 							<li>
 					 	  	 <a href="javascript:;" onclick="changeTex(2)">切换材质2</a>
 					 	  </li>
+							<li>
+					 	  	 <a href="javascript:;" onclick="changePlace()">位置移动</a>
+					 	  </li>
+							<li>
+					 	  	 <a href="javascript:;" onclick="changeView()">视角切换</a>
+					 	  </li>
 					 </ul>
 				</div>
 		 </div>
@@ -52,6 +58,7 @@
 
 		var container, stats, ww, wh;
 		var camera, scene, renderer, mesh, grid, controls, material;
+		var gui, effectController;
 		// -----
 
 		var clock = new THREE.Clock();
@@ -94,10 +101,29 @@
 			controls = new THREE.OrbitControls(camera, renderer.domElement);
 			controls.enableKeys = false;
 
-			stats = new Stats();
-			container.appendChild( stats.domElement );
 
 			window.addEventListener('resize', onWindowResize, false);
+
+			setupStats()
+			setupGUI()
+
+		}
+
+		function setupStats() {
+			stats = new Stats();
+			stats.setMode(1); // 0: fps, 1: ms
+			stats.domElement.style.position = 'absolute';
+			document.body.appendChild( stats.domElement );
+		}
+
+		function setupGUI() {
+				effectController = {
+					rotationSpeed: 0.02,
+				};
+				gui = new dat.GUI();
+				var f1 = gui.addFolder( "Rotation speed control" );
+				f1.add(effectController, "rotationSpeed", 0.0, 1.0, 0.01 ).name( "rotationSpeed").onChange(render);
+				f1.open();
 		}
 
 		function loader(mod) {
@@ -149,7 +175,6 @@
 				mesh.scale.set(4,4,4);
 				mesh.position.y = -30;
 				scene.add( mesh );
-				//
 			});
 		}
 
@@ -157,7 +182,7 @@
 			// obj 格式文件加载
 			scene.remove(mesh)
 			var loader = new THREE.OBJLoader();
-			loader.load('./demo/models/monkey.obj', function(obj) {
+			loader.load('./demo/models/mplane.obj', function(obj) {
 					obj.traverse(function(child) {
 							if (child instanceof THREE.Mesh) {
 									child.material = new THREE.MeshLambertMaterial({
@@ -192,13 +217,18 @@
 			});
 		}
 
+		function render() {
+			renderer.render(scene, camera);
+		}
+
 		function animate() {
 			requestAnimationFrame(animate);
 			var delta = clock.getDelta();
-			mesh.rotation.y += 0.01;
+			mesh.rotation.y += effectController.rotationSpeed
 			stats.update();
 			controls.update();
-			renderer.render(scene, camera);
+			TWEEN.update();
+			render();
 		}
 
 		function onWindowResize() {
@@ -207,11 +237,33 @@
 			renderer.setSize(ww, wh);
 		}
 
+		function setupTween(obj, prop, targetValue) {
+			var update  = function(){
+				obj[prop] = current.property;
+			}
+
+			var current = { property: obj[prop] };
+			var target = { property: targetValue };
+
+			var tween = new TWEEN.Tween(current).to(target, 800)
+				.easing(TWEEN.Easing.Cubic.Out)
+				.onUpdate(update);
+
+			tween.start();
+		}
+
 		function changeModle(num) {
 				loader(num)
 		}
 		function changeTex(num) {
 			 loaderJson(num)
+		}
+		function changePlace() {
+			 setupTween(mesh.position, 'y', -200 );
+		}
+		function changeView() {
+			 setupTween(camera.position, 'z', 100 );
+			 setupTween(camera.position, 'y', -200 );
 		}
 	</script>
 </body>
