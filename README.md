@@ -48,7 +48,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
   }
   ```
 
-## Shader相关资料
+## Shader 相关资料
 
 * [LearnOpenGL-CN](https://learnopengl-cn.readthedocs.io/zh/latest/)
 * [The Book of Shaders](https://thebookofshaders.com/?lan=ch)—一本关于 Fragment Shaders（片段着色器）的入门指南
@@ -56,6 +56,11 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [Inigo Quilez](http://www.iquilezles.org/www/index.htm) - 有关计算机图形学、着色器的博客代码示例
 * [Introducing Shaders](https://openframeworks.cc/ofBook/chapters/shaders.html)
 * [pixelshaders](http://pixelshaders.com/) - 基础代码示例
+
+#### shader 效果
+
+用如上 **[Shaders 在线编辑器](http://editor.thebookofshaders.com)** 可以查看效果
+[这里查看效果代码](./docs/glsl/glsl_shaders.md)
 
 #### 网上收集资料
 
@@ -92,7 +97,8 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ## 在线站点
 
-* [Altered Qualia](http://alteredqualia.com/)
+* [marpi.pl](https://demo.marpi.pl) - 很多牛X的Demo
+* [Altered Qualia](http://alteredqualia.com/) - 也是很棒的Demo
 * [CESIUM 3D 地球](http://cesiumjs.org/index.html)
 
 ### 在线DEMO
@@ -110,7 +116,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 * [tunnel-effect](http://learningthreejs.com/blog/2012/01/11/tunnel-effect/)
 * [Altered earth](http://alteredqualia.com/xg/examples/earth_bathymetry.html)
 
-## 相关书籍资料 18382079109
+## 相关书籍资料
 
 收集整理学习资料。
 
@@ -122,5 +128,9 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ## 同类库探索
 
+![b4w](./docs/images/b4w.png)  ![p5.js](./docs/images/p5.png)
+
 * [blend4web](https://github.com/TriumphLLC/Blend4Web)
    * [Demo案例 - 仿机械革命源计划-私人定制](http://zyj1022.github.io/demos/blend4web/index.html)
+* [P5.js](https://p5js.org/zh-Hans/)
+   * [OpenProcessing](https://www.openprocessing.org/) - 各种 demo
