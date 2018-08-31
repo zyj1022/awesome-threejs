@@ -132,5 +132,13 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 * [blend4web](https://github.com/TriumphLLC/Blend4Web)
    * [Demo案例 - 仿机械革命源计划-私人定制](http://zyj1022.github.io/demos/blend4web/index.html)
-* [P5.js](https://p5js.org/zh-Hans/)
+* [P5.js](https://p5js.org/zh-Hans/) - [基础教程](./docs/hello-p5.md)
+   * [p5.js Web Editor](https://editor.p5js.org) - p5在线编辑器
    * [OpenProcessing](https://www.openprocessing.org/) - 各种 demo
+   * wangyasai-[亚赛大人](https://github.com/wangyasai),很多好玩的效果，👍.
+     - [Speed-Line](https://wangyasai.github.io/Speed-Line/) - 漫画必备超燃速度线
+     - [Play-a-ball](https://wangyasai.github.io/Play-a-ball/) - 抽象球体生成器
+     - [Awesome Masoic](https://wangyasai.github.io/Awesome-Masoic) - 动态马赛克背景生成器
+     - [Perlin Noise](https://wangyasai.github.io/Perlin-Noise/) - 等高线神器
+     - [Stars-Emmision](https://wangyasai.github.io/Stars-Emmision/) - 万箭齐发毫发无伤背景生成器
+     - [Particles-Emission](https://wangyasai.github.io/Particles-Emission/) - 粒子循环运动神器

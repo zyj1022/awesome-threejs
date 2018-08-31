@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#credits {
+  font-size: 12px;
+  position: absolute;
+  bottom: -25px;
+  right: 15px;
+  color: #FFFFFF;
+  max-width: 70%;
+  text-align: right;
+  line-height: 20px;
+  opacity: 0.3;
+}
+
+.social {
+  opacity: 0.5;
+}
+
+.iconlink {
+  bottom: 50px;
+  margin-right: 0px;
+  opacity: 0.7;
+}
+
+#img-path {
+  display: none;
+}
