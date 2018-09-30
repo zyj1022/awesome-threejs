@@ -12,259 +12,322 @@
 	<script type="text/javascript" src="libs/stats.js"></script>
 	<script type="text/javascript" src="libs/tween.js"></script>
 	<script type="text/javascript" src="libs/dat.gui.js"></script>
-
-	<script type="text/javascript" src="libs/loaders/MTLLoader.js"></script>
-	<script type="text/javascript" src="libs/loaders/OBJLoader.js"></script>
-	<script type="text/javascript" src="libs/loaders/LoaderSupport.js"></script>
-	<script type="text/javascript" src="libs/loaders/OBJLoader2.js"></script>
-	<script type="text/javascript" src="libs/loaders/STLLoader.js"></script>
+	<style>
+		body {
+	    		background: #9fdaff
+	    }
+	</style>
 </head>
 
 <body>
-	<div class="zk-wrap">
-		 <div class="zk-header"></div>
-		 <div class="zk-main">
-		 	  <div id="zk-three" class="zk-three"></div>
-				<div class="zk-handler">
-					 <ul>
-					 	  <li>
-					 	  	 <a href="javascript:;" onclick="changeModle(1)">更换模型1</a>
-					 	  </li>
-							<li>
-								 <a href="javascript:;" onclick="changeModle(2)">更换模型2</a>
-							</li>
-							<li>
-								 <a href="javascript:;" onclick="changeModle(3)">更换模型3</a>
-							</li>
-							<li>
-					 	  	 <a href="javascript:;" onclick="changeTex(1)">切换材质1</a>
-					 	  </li>
-							<li>
-					 	  	 <a href="javascript:;" onclick="changeTex(2)">切换材质2</a>
-					 	  </li>
-							<li>
-					 	  	 <a href="javascript:;" onclick="changePlace()">位置移动</a>
-					 	  </li>
-							<li>
-					 	  	 <a href="javascript:;" onclick="changeView()">视角切换</a>
-					 	  </li>
-					 </ul>
-				</div>
-		 </div>
-	</div>
+	<div id="zk-world" class="zk-world"></div>
+
 	<script type="text/javascript">
 
-		if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+		if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-		var container, stats, ww, wh;
-		var camera, scene, renderer, mesh, grid, controls, material;
-		var gui, effectController;
-		// -----
+		//COLORS
+		var Colors = {
+			red: 0xf25346,
+			white: 0xd8d0d1,
+			brown: 0x59332e,
+			pink: 0xF5986E,
+			brownDark: 0x23190f,
+			blue: 0x006585
+		};
 
-		var clock = new THREE.Clock();
+		// THREEJS RELATED VARIABLES
 
-		init();
-		animate();
+		var scene,
+			camera,
+			renderer,
+			container;
 
+		//SCREEN & MOUSE VARIABLES
 
-		function init() {
+		var HEIGHT,
+			WIDTH,
+			mousePos = {
+				x: 0,
+				y: 0
+			};
 
-			container = document.getElementById('zk-three');
-			ww = container.offsetWidth;
-			wh = container.offsetHeight;
+		//INIT THREE JS, SCREEN AND MOUSE EVENTS
+
+		function createScene() {
+
+			HEIGHT = window.innerHeight;
+			WIDTH = window.innerWidth;
 
 			scene = new THREE.Scene();
-
-			camera = new THREE.PerspectiveCamera(60, ww / wh, 1, 100000);
-			camera.position.set( 0, 200, 300 );
-			camera.lookAt(scene.position);
-
-			grid = new THREE.GridHelper(2000, 40, 0x555555, 0xbbbbbb);
-			grid.position.y = -150;
-			scene.add(grid);
-
-
-			setupLight()
-
-			loader(1)
+			camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 1, 10000);
+			scene.fog = new THREE.Fog(0x9de4ff, 100, 950);
+			camera.position.x = 0;
+			camera.position.z = 300;
+			camera.position.y = 100;
+			// camera.position.set( 10, 400, 200 );
+			// camera.lookAt(scene.position);
 
 			renderer = new THREE.WebGLRenderer({
-				antialias: true,
-				alpha: true
+				alpha: true,
+				antialias: true
 			});
-
-			renderer.setClearColor(0x000000, 0.1);
-			renderer.setSize(ww, wh);
+			renderer.setSize(WIDTH, HEIGHT);
+			renderer.shadowMap.enabled = true;
+			container = document.getElementById('zk-world');
 			container.appendChild(renderer.domElement);
 
-
-			controls = new THREE.OrbitControls(camera, renderer.domElement);
-			controls.enableKeys = false;
-
-
 			window.addEventListener('resize', onWindowResize, false);
-
-			setupStats()
-			setupGUI()
-
 		}
 
-		function setupStats() {
-			stats = new Stats();
-			stats.setMode(1); // 0: fps, 1: ms
-			stats.domElement.style.position = 'absolute';
-			document.body.appendChild( stats.domElement );
-		}
-
-		function setupGUI() {
-				effectController = {
-					rotationSpeed: 0.02,
-				};
-				gui = new dat.GUI();
-				var f1 = gui.addFolder( "Rotation speed control" );
-				f1.add(effectController, "rotationSpeed", 0.0, 1.0, 0.01 ).name( "rotationSpeed").onChange(render);
-				f1.open();
-		}
-
-		function loader(mod) {
-			switch (mod) {
-				case 1:
-					loaderJson(mod)
-					break;
-				case 2:
-					loaderOBJ()
-					break;
-				case 3:
-					loderMTL()
-					break;
-			}
-		}
-
-		function setupLight() {
-			var ambLight = new THREE.AmbientLight(0x444444);
-			scene.add(ambLight);
-
-			// directional - KEY LIGHT
-			var keyLight = new THREE.DirectionalLight( 0xdddddd, .7 );
-			keyLight.position.set( -80, 60, 80 );
-			scene.add( keyLight );
-
-		}
-
-		function loaderJson(tex) {
-			var loader = new THREE.TextureLoader();
-
-			var texture1 = 'http://127.0.0.1:8080/demo/images/hardwood2_diffuse.jpg';
-			var texture2 = 'http://127.0.0.1:8080/demo/images/hardwood2_roughness.jpg';
-
-			loader.load(tex == 1 ? texture1 : texture2,
-				function (texture) {
-					material = new THREE.MeshPhongMaterial({
-						color: 0xbbbbbb,
-						side: THREE.DoubleSide, // 双面绘制
-						map: texture
-					 });
-				}
-			);
-			scene.remove(mesh)
-			// json 格式文件加载
-			var objloader = new THREE.ObjectLoader();
-			objloader.load( "./demo/models/teapot.json", function( group ) {
-				mesh = group.children[0];
-				mesh.material = material;
-				mesh.scale.set(4,4,4);
-				mesh.position.y = -30;
-				scene.add( mesh );
-			});
-		}
-
-		function loaderOBJ() {
-			// obj 格式文件加载
-			scene.remove(mesh)
-			var loader = new THREE.OBJLoader();
-			loader.load('./demo/models/mplane.obj', function(obj) {
-					obj.traverse(function(child) {
-							if (child instanceof THREE.Mesh) {
-									child.material = new THREE.MeshLambertMaterial({
-											// color: 0xffffff,
-											side: THREE.DoubleSide
-									});
-							}
-					});
-					mesh = obj;
-					mesh.position.y = -30;
-					mesh.scale.set(30,30,30);
-					scene.add(obj);
-			});
-		}
-
-		function loderMTL() {
-			// 建模软件中设置材质
-			scene.remove(mesh)
-			var mtlLoader = new THREE.MTLLoader();
-			mtlLoader.load('./demo/models/monkey.mtl', function(materials) {
-					// model loader
-					materials.preload();
-					var objLoader = new THREE.OBJLoader()
-							.setMaterials(materials)
-							.load('./demo/models/monkey.obj', function (obj) {
-									mesh = obj;
-									mesh.position.y = -30;
-									mesh.position.z = -120;
-									mesh.scale.set(30,30,30);
-									scene.add(obj);
-					});
-			});
-		}
-
-		function render() {
-			renderer.render(scene, camera);
-		}
-
-		function animate() {
-			requestAnimationFrame(animate);
-			var delta = clock.getDelta();
-			mesh.rotation.y += effectController.rotationSpeed
-			stats.update();
-			controls.update();
-			TWEEN.update();
-			render();
-		}
+		// HANDLE SCREEN EVENTS
 
 		function onWindowResize() {
-			camera.aspect = ww / wh;
+			HEIGHT = window.innerHeight;
+			WIDTH = window.innerWidth;
+			renderer.setSize(WIDTH, HEIGHT);
+			camera.aspect = WIDTH / HEIGHT;
 			camera.updateProjectionMatrix();
-			renderer.setSize(ww, wh);
 		}
 
-		function setupTween(obj, prop, targetValue) {
-			var update  = function(){
-				obj[prop] = current.property;
+		// LIGHTS
+
+		var ambientLight,
+			hemisphereLight,
+			shadowLight;
+
+		function createLights() {
+
+			hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, .9)
+			shadowLight = new THREE.DirectionalLight(0xffffff, .9);
+			shadowLight.position.set(150, 350, 350);
+			shadowLight.castShadow = true;
+			shadowLight.shadow.camera.left = -400;
+			shadowLight.shadow.camera.right = 400;
+			shadowLight.shadow.camera.top = 400;
+			shadowLight.shadow.camera.bottom = -400;
+			shadowLight.shadow.camera.near = 1;
+			shadowLight.shadow.camera.far = 1000;
+			shadowLight.shadow.mapSize.width = 2048;
+			shadowLight.shadow.mapSize.height = 2048;
+
+			scene.add(hemisphereLight);
+			scene.add(shadowLight);
+		}
+
+		var AirPlane = function() {
+			this.mesh = new THREE.Object3D();
+			this.mesh.name = "airPlane";
+
+			// Create the cabin
+			var geomCockpit = new THREE.BoxGeometry(60, 50, 50, 1, 1, 1);
+			var matCockpit = new THREE.MeshPhongMaterial({
+				color: Colors.red,
+				// flatShading: THREE.FlatflatShading
+			});
+			var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+			cockpit.castShadow = true;
+			cockpit.receiveShadow = true;
+			this.mesh.add(cockpit);
+
+			// Create Engine
+			var geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
+			var matEngine = new THREE.MeshPhongMaterial({
+				color: Colors.white,
+				// flatShading: THREE.FlatflatShading
+			});
+			var engine = new THREE.Mesh(geomEngine, matEngine);
+			engine.position.x = 40;
+			engine.castShadow = true;
+			engine.receiveShadow = true;
+			this.mesh.add(engine);
+
+			// Create Tailplane
+
+			var geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
+			var matTailPlane = new THREE.MeshPhongMaterial({
+				color: Colors.red,
+				// flatShading: THREE.FlatflatShading
+			});
+			var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+			tailPlane.position.set(-35, 25, 0);
+			tailPlane.castShadow = true;
+			tailPlane.receiveShadow = true;
+			this.mesh.add(tailPlane);
+
+			// Create Wing
+
+			var geomSideWing = new THREE.BoxGeometry(40, 8, 150, 1, 1, 1);
+			var matSideWing = new THREE.MeshPhongMaterial({
+				color: Colors.red,
+				// flatShading: THREE.FlatflatShading
+			});
+			var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
+			sideWing.position.set(0, 0, 0);
+			sideWing.castShadow = true;
+			sideWing.receiveShadow = true;
+			this.mesh.add(sideWing);
+
+			// Propeller
+
+			var geomPropeller = new THREE.BoxGeometry(20, 10, 10, 1, 1, 1);
+			var matPropeller = new THREE.MeshPhongMaterial({
+				color: Colors.brown,
+				// flatShading: THREE.FlatflatShading
+			});
+			this.propeller = new THREE.Mesh(geomPropeller, matPropeller);
+			this.propeller.castShadow = true;
+			this.propeller.receiveShadow = true;
+
+			// Blades
+
+			var geomBlade = new THREE.BoxGeometry(1, 100, 20, 1, 1, 1);
+			var matBlade = new THREE.MeshPhongMaterial({
+				color: Colors.brownDark,
+				// flatShading: THREE.FlatflatShading
+			});
+
+			var blade = new THREE.Mesh(geomBlade, matBlade);
+			blade.position.set(8, 0, 0);
+			blade.castShadow = true;
+			blade.receiveShadow = true;
+			this.propeller.add(blade);
+			this.propeller.position.set(50, 0, 0);
+			this.mesh.add(this.propeller);
+		};
+
+		Sky = function() {
+			this.mesh = new THREE.Object3D();
+			this.nClouds = 20;
+			this.clouds = [];
+			var stepAngle = Math.PI * 2 / this.nClouds;
+			for (var i = 0; i < this.nClouds; i++) {
+				var c = new Cloud();
+				this.clouds.push(c);
+				var a = stepAngle * i;
+				var h = 750 + Math.random() * 200;
+				c.mesh.position.y = Math.sin(a) * h;
+				c.mesh.position.x = Math.cos(a) * h;
+				c.mesh.position.z = -400 - Math.random() * 400;
+				c.mesh.rotation.z = a + Math.PI / 2;
+				var s = 1 + Math.random() * 2;
+				c.mesh.scale.set(s, s, s);
+				this.mesh.add(c.mesh);
 			}
-
-			var current = { property: obj[prop] };
-			var target = { property: targetValue };
-
-			var tween = new TWEEN.Tween(current).to(target, 800)
-				.easing(TWEEN.Easing.Cubic.Out)
-				.onUpdate(update);
-
-			tween.start();
 		}
 
-		function changeModle(num) {
-				loader(num)
+		Sea = function() {
+			var geom = new THREE.CylinderGeometry(600, 600, 800, 40, 10);
+			geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
+			var mat = new THREE.MeshPhongMaterial({
+				color: Colors.blue,
+				transparent: true,
+				opacity: .6,
+				// flatShading: THREE.FlatflatShading
+			});
+			this.mesh = new THREE.Mesh(geom, mat);
+			this.mesh.receiveShadow = true;
 		}
-		function changeTex(num) {
-			 loaderJson(num)
+
+		Cloud = function() {
+			this.mesh = new THREE.Object3D();
+			this.mesh.name = "cloud";
+			var geom = new THREE.CubeGeometry(20, 20, 20);
+			var mat = new THREE.MeshPhongMaterial({
+				color: Colors.white
+			});
+
+			var nBlocs = 3 + Math.floor(Math.random() * 3);
+			for (var i = 0; i < nBlocs; i++) {
+				var m = new THREE.Mesh(geom.clone(), mat);
+				m.position.x = i * 15;
+				m.position.y = Math.random() * 10;
+				m.position.z = Math.random() * 10;
+				m.rotation.z = Math.random() * Math.PI * 2;
+				m.rotation.y = Math.random() * Math.PI * 2;
+				var s = .1 + Math.random() * .9;
+				m.scale.set(s, s, s);
+				m.castShadow = true;
+				m.receiveShadow = true;
+				this.mesh.add(m);
+			}
 		}
-		function changePlace() {
-			 setupTween(mesh.position, 'y', -200 );
+
+		// 3D Models
+		var sea;
+		var airplane;
+
+		function createPlane() {
+			airplane = new AirPlane();
+			airplane.mesh.scale.set(.25, .25, .25);
+			airplane.mesh.position.y = 100;
+			scene.add(airplane.mesh);
 		}
-		function changeView() {
-			 setupTween(camera.position, 'z', 100 );
-			 setupTween(camera.position, 'y', -200 );
+
+		function createSea() {
+			sea = new Sea();
+			sea.mesh.position.y = -600;
+			scene.add(sea.mesh);
 		}
+
+		function createSky() {
+			sky = new Sky();
+			sky.mesh.position.y = -600;
+			scene.add(sky.mesh);
+		}
+
+		function loop() {
+			updatePlane();
+			sea.mesh.rotation.z += .005;
+			sky.mesh.rotation.z += .01;
+			renderer.render(scene, camera);
+			requestAnimationFrame(loop);
+		}
+
+		function updatePlane() {
+			var targetY = normalize(mousePos.y, -.75, .75, 25, 175);
+			var targetX = normalize(mousePos.x, -.75, .75, -100, 100);
+			airplane.mesh.position.y = targetY;
+			airplane.mesh.position.x = targetX;
+			airplane.propeller.rotation.x += 0.3;
+		}
+
+		function normalize(v, vmin, vmax, tmin, tmax) {
+			var nv = Math.max(Math.min(v, vmax), vmin);
+			var dv = vmax - vmin;
+			var pc = (nv - vmin) / dv;
+			var dt = tmax - tmin;
+			var tv = tmin + (pc * dt);
+			return tv;
+		}
+
+		function init(event) {
+			document.addEventListener('mousemove', handleMouseMove, false);
+			createScene();
+			createLights();
+			createPlane();
+			createSea();
+			createSky();
+			loop();
+		}
+
+		// HANDLE MOUSE EVENTS
+
+		var mousePos = {
+			x: 0,
+			y: 0
+		};
+
+		function handleMouseMove(event) {
+			var tx = -1 + (event.clientX / WIDTH) * 2;
+			var ty = 1 - (event.clientY / HEIGHT) * 2;
+			mousePos = {
+				x: tx,
+				y: ty
+			};
+		}
+
+		window.addEventListener('load', init, false);
 	</script>
 </body>
 

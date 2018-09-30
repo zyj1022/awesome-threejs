@@ -103,6 +103,9 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ### 在线DEMO
 
+* [The Aviator](https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/) - the-aviator-animating-basic-3d-scene-threejs
+* [Infinite Tubes](https://tympanus.net/codrops/2017/05/09/infinite-tubes-with-three-js/)
+* [Decorative WebGL Backgrounds](https://tympanus.net/codrops/2017/11/28/decorative-webgl-backgrounds/)
 * [egraether - Demos](http://egraether.com)
 * [David Lyons - 3D Artist](http://davidscottlyons.com)
 * [83个含注释Demo](https://stemkoski.github.io/Three.js/)
