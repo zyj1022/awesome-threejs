@@ -27,14 +27,27 @@
 			uniform vec2 u_resolution;
 			uniform float u_time;
 
+      /*
+       sin(), cos(), tan(), asin(), acos(), atan(),
+       pow(), exp(), log(), sqrt(), abs(), sign(),
+       floor(), ceil(), fract(), mod(), min(),
+       max(),clamp()。
+       */
+      /*
+       几何函数：distance(), dot(), cross, normalize(), faceforward(),
+        reflect() 和 refract()
+      向量相关的函数: lessThan(), lessThanEqual(), greaterThan(),
+      greaterThanEqual(), equal() and notEqual()
+       */
 			float wave(vec2 p, float angle) {
-			  vec2 direction = vec2(cos(angle), sin(angle));
+			  vec2 direction = vec2(sin(angle), cos(angle));
+        // dot 计算两个向量的点积
 			  return cos(dot(p, direction));
 			}
 
 			float wrap(float x) {
-			  // return abs(mod(x, 2.)-1.);
-			  return abs(mod(x, 2.)-1.)*-1. + 1.;
+			  return abs(mod(x, 2.)-1.);
+			  // return abs(mod(x, 2.)-1.)*-1. + 1.;
 			}
 
 			void main() {
@@ -50,7 +63,7 @@
 
 				 vec4 c1 = vec4(0.0,0.0,0.2,1.0);
 				 vec4 c2 = vec4(1.5,0.7,0.0,1.0);
-				 gl_FragColor = mix(c1,c2,brightness);
+				 gl_FragColor = mix(c1,c2,brightness); // mix 函数让你以百分比混合值
 
 			}
 
