@@ -1,0 +1,121 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>hello-shader</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+  <script type="text/javascript" src="../../libs/three.js"></script>
+</head>
+
+
+<body>
+	<div id="container"></div>
+	<script id="vertexShader" type="x-shader/x-vertex">
+		void main() {
+        gl_Position = vec4( position, 1.0 );
+      }
+  </script>
+	<script id="fragmentShader" type="x-shader/x-fragment">
+
+			uniform vec2 u_resolution;
+			uniform float u_time;
+
+			float wave(vec2 p, float angle) {
+			  vec2 direction = vec2(cos(angle), sin(angle));
+			  return cos(dot(p, direction));
+			}
+
+			float wrap(float x) {
+			  // return abs(mod(x, 2.)-1.);
+			  return abs(mod(x, 2.)-1.)*-1. + 1.;
+			}
+
+			void main() {
+				 vec2 position = ( gl_FragCoord.xy / u_resolution.xy );
+				 vec2 p = (position - 0.5) * 50.; // 定位中心点
+				 float brightness = 0.;
+				 for (float i = 1.; i <= 11.; i++) {
+					 brightness += wave(p, u_time / i);
+				 }
+				 brightness = wrap(brightness);
+
+				 // gl_FragColor=vec4(vec3(brightness), 1.0); //黑白色
+
+				 vec4 c1 = vec4(0.0,0.0,0.2,1.0);
+				 vec4 c2 = vec4(1.5,0.7,0.0,1.0);
+				 gl_FragColor = mix(c1,c2,brightness);
+
+			}
+
+    </script>
+	<script>
+		var container;
+		var camera, scene, renderer;
+		var uniforms;
+
+		init();
+		animate();
+
+		function init() {
+			container = document.getElementById('container');
+
+			camera = new THREE.Camera();
+			camera.position.z = 1;
+
+			scene = new THREE.Scene();
+
+			var geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+			uniforms = {
+				u_time: {
+					type: "f",
+					value: 1.0
+				},
+				u_resolution: {
+					type: "v2",
+					value: new THREE.Vector2()
+				}
+			};
+
+			var material = new THREE.ShaderMaterial({
+				uniforms: uniforms,
+				vertexShader: document.getElementById('vertexShader').textContent,
+				fragmentShader: document.getElementById('fragmentShader').textContent
+			});
+
+			var mesh = new THREE.Mesh(geometry, material);
+			scene.add(mesh);
+
+			renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio(window.devicePixelRatio);
+
+			container.appendChild(renderer.domElement);
+
+			onWindowResize();
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function onWindowResize(event) {
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			uniforms.u_resolution.value.x = renderer.domElement.width;
+			uniforms.u_resolution.value.y = renderer.domElement.height;
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
+
+		function render() {
+			uniforms.u_time.value += 0.02;
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
