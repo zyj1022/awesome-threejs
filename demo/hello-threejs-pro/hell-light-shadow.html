@@ -1,0 +1,204 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>光源影子的关系</title>
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script type="text/javascript" src="../../libs/three.js"></script>
+	<script type="text/javascript" src="../../libs/OrbitControls.js"></script>
+  <script type="text/javascript" src="../../libs/stats.js"></script>
+	<script type="text/javascript" src="../../libs/dat.gui.js"></script>
+</head>
+
+<body>
+	<script type="text/javascript">
+		var SCREEN_WIDTH = window.innerWidth;
+		var SCREEN_HEIGHT = window.innerHeight;
+
+		var container, stats;
+		var camera, scene, renderer, mesh, grid, controls, gui;
+    var step = 0;
+    var cube, sphere, guiData;
+    var ambientLight, spotLight;
+    var ambiColor = "#0c0c0c";
+		// ------------------------------------------------
+
+    setup()
+
+    function setup(){
+      creatScene();
+      creatGrid();
+      creatPlane();
+      creatGeometry();
+      creatLight();
+      guiControl()
+      animate()
+    }
+
+    // 创建场景
+		function creatScene() {
+			container = document.createElement('div');
+			document.body.appendChild(container);
+
+			scene = new THREE.Scene();
+
+			camera = new THREE.PerspectiveCamera(45, SCREEN_WIDTH / SCREEN_HEIGHT, 01, 1000);
+      camera.position.x = -25;
+      camera.position.y = 30;
+      camera.position.z = 25;
+      camera.lookAt(new THREE.Vector3(10, 0, 0));
+
+			renderer = new THREE.WebGLRenderer({
+				antialias: true,
+				alpha: true
+			});
+			renderer.setClearColor(0xeeeeee, 1);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+      renderer.shadowMap.enabled = true; //
+			container.appendChild(renderer.domElement);
+      window.addEventListener('resize', onWindowResize, false);
+      creactStats()
+      sceneControls()
+		}
+
+    // 创建灯光
+    function creatLight() {
+
+      ambientLight = new THREE.AmbientLight(ambiColor);
+      scene.add(ambientLight);
+
+      // add spotlight for the shadows
+      spotLight = new THREE.SpotLight(0xffffff);
+      spotLight.position.set(-40, 60, -10);
+      spotLight.castShadow = true;
+      scene.add(spotLight);
+
+      var sLightHelper = new THREE.SpotLightHelper( spotLight );
+			scene.add( sLightHelper );
+    }
+
+    // 创建几何体
+    function creatGeometry() {
+      // create a cube
+      var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
+      var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
+      cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+      cube.castShadow = true;
+
+      // position the cube
+      cube.position.x = -4;
+      cube.position.y = 3;
+      cube.position.z = 0;
+
+      // add the cube to the scene
+      scene.add(cube);
+
+      var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+      var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x7777ff});
+      sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+      // position the sphere
+      sphere.position.x = 20;
+      sphere.position.y = 4;
+      sphere.position.z = 2;
+      sphere.castShadow = true;
+
+      // add the sphere to the scene
+      scene.add(sphere);
+    }
+
+    // 创建平面
+    function creatPlane() {
+      // create the ground plane
+      var planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
+      var planeMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
+      var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane.receiveShadow = true;
+
+      // rotate and position the plane
+      plane.rotation.x = -0.5 * Math.PI;
+      plane.position.x = 15;
+      plane.position.y = 0;
+      plane.position.z = 0;
+
+      // add the plane to the scene
+      scene.add(plane);
+    }
+
+    // 创建网格
+    function creatGrid() {
+      grid = new THREE.GridHelper(2000, 40, 0x555555, 0xbbbbbb);
+      grid.material.transparent = true;
+      grid.position.y = -100;
+      scene.add(grid);
+    }
+
+    // 场景自适应浏览器
+    function onWindowResize() {
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+      camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+      camera.updateProjectionMatrix();
+    }
+
+    // 帧率监控
+    function creactStats() {
+      stats = new Stats();
+  		container.appendChild(stats.domElement);
+    }
+
+    // 场景控制器
+    function sceneControls() {
+			controls = new THREE.OrbitControls(camera, renderer.domElement);
+			controls.autoRotate = true;
+			controls.autoRotateSpeed = 2;
+			controls.enableKeys = false;
+		}
+
+    function guiControl() {
+      guiData = new function () {
+          this.rotationSpeed = 0.02;
+          this.bouncingSpeed = 0.03;
+          this.ambientColor = ambiColor;
+          this.disableSpotlight = false;
+      };
+
+      gui = new dat.GUI();
+      gui.addColor(guiData, 'ambientColor').onChange(function (e) {
+          console.log('e',e)
+          ambientLight.color = new THREE.Color(e);
+      });
+      gui.add(guiData, 'disableSpotlight').onChange(function (e) {
+          spotLight.visible = !e;
+      });
+    }
+
+    // 创建动画
+    function animate() {
+      // rotate the cube around its axes
+      cube.rotation.x += guiData.rotationSpeed;
+      cube.rotation.y += guiData.rotationSpeed;
+      cube.rotation.z += guiData.rotationSpeed;
+
+      // bounce the sphere up and down
+      step += guiData.bouncingSpeed;
+      sphere.position.x = 20 + ( 10 * (Math.cos(step)));
+      sphere.position.y = 2 + ( 10 * Math.abs(Math.sin(step)));
+
+			requestAnimationFrame(animate);
+			renderer.render(scene, camera);
+			stats.update();
+		}
+
+
+
+	</script>
+</body>
+
+</html>

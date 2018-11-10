@@ -27,6 +27,8 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ## 进阶教程
 
+- [x] [理解光源的应用](./docs/hello-light-pro.md)
+- [ ] 粒子效果点云
 - [x] [OpenGL GLSL 基础语法和函数](./docs/glsl/glsl-syntax.md)
 - [x] [GLSL 中文手册](./docs/glsl/glsl-cookbook.md)
 
