@@ -1,6 +1,6 @@
 # Hellow Three.js 之 让物体动起来
 
-> [Demo查看](../demo/hello-threejs/hello-tween.html)
+> [Demo查看](http://codeffe.com/demo/hello-threejs/hello-tween.html)
 
 ![tween](./images/tween.png)
 
@@ -40,30 +40,29 @@ Tween.js是一个包含各种经典动画算法的JS资源,动画效果主要包
 
 Quad, Cubic等等都是经典的动画运动算法名称，完整列表如下：
 
-* Linear：线性匀速运动效果；
-* Quadratic：二次方的缓动（t^2）；
-* Cubic：三次方的缓动（t^3）；
-* Quartic：四次方的缓动（t^4）；
-* Quintic：五次方的缓动（t^5）；
-* Sinusoidal：正弦曲线的缓动（sin(t)）；
-* Exponential：指数曲线的缓动（2^t）；
-* Circular：圆形曲线的缓动（sqrt(1-t^2)）；
-* Elastic：指数衰减的正弦曲线缓动；
-* Back：超过范围的三次方缓动 `（(s+1)*t^3 – s*t^2）`
-* Bounce：指数衰减的反弹缓动
+- Linear：线性匀速运动效果；
+- Quadratic：二次方的缓动（t^2）；
+- Cubic：三次方的缓动（t^3）；
+- Quartic：四次方的缓动（t^4）；
+- Quintic：五次方的缓动（t^5）；
+- Sinusoidal：正弦曲线的缓动（sin(t)）；
+- Exponential：指数曲线的缓动（2^t）；
+- Circular：圆形曲线的缓动（sqrt(1-t^2)）；
+- Elastic：指数衰减的正弦曲线缓动；
+- Back：超过范围的三次方缓动 `（(s+1)*t^3 – s*t^2）`
+- Bounce：指数衰减的反弹缓动
 
 每个效果都分三个缓动方式，分别是：
 
-* easeIn：从0开始加速的缓动，也就是先慢后快；
-* easeOut：减速到0的缓动，也就是先快后慢；
-* easeInOut：前半段从0开始加速，后半段减速到0的缓动。
+- easeIn：从0开始加速的缓动，也就是先慢后快；
+- easeOut：减速到0的缓动，也就是先快后慢；
+- easeInOut：前半段从0开始加速，后半段减速到0的缓动。
 
 这里还有一份 [缓动函数速查表](https://easings.net/zh-cn#)
 
 ![easings](./images/easings.net.png)
 
-
-***Tween.js 具体用法***
+**_Tween.js 具体用法_**
 
 tween.js 可以链式调用！ 每个tween函数都会返回tween实例。
 
@@ -72,17 +71,16 @@ tween.js 可以链式调用！ 每个tween函数都会返回tween实例。
 ```
 var position = { x: 100, y: 0 }
 var tween = new TWEEN.Tween(position)
-	.to({ x: 200 }, 1000)
-	.start();
+    .to({ x: 200 }, 1000)
+    .start();
 ```
 
-
-------
+--------------------------------------------------------------------------------
 
 本文部分内容参照及引用：
 
 > [tween是什么？如何使用？](https://github.com/tweenjs/tween.js/blob/master/docs/user_guide_zh-CN.md)
->
+
 > [Three.js入门指南](http://www.ituring.com.cn/book/1272)
->
+
 > [详解requestAnimationFrame](https://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-动画算法/)

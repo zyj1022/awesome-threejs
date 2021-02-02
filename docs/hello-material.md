@@ -1,6 +1,6 @@
 # Hellow Three.js 之 给创建的物体赋予材质
 
-> [Demo查看](../demo/hello-threejs/hello-material.html)
+> [Demo查看](http://codeffe.com/demo/hello-threejs/hello-material.html)
 
 ![material](./images/material.png)
 
@@ -8,8 +8,8 @@
 
 **材质种类：**
 
-- LineBasicMaterial 基础线条材质 — 可以用于THREE.Line几何体，从而创建着色的直线
-- LineDashedMaterial 虚线材质 — 类似与基础材质，但可以创建虚线效果
+- LineBasicMaterial 基础线条材质 -- 可以用于THREE.Line几何体，从而创建着色的直线
+- LineDashedMaterial 虚线材质 -- 类似与基础材质，但可以创建虚线效果
 - MeshBasicMaterial 基础网孔材质 - 为几何体赋予一种简单的颜色，或者显示几何体的线框
 - MeshDepthMaterial 深度网孔材质 - 根据网格到相机的距离，该材质决定如何给网格染色
 - MeshLambertMaterial 兰伯特网孔材质 - 考虑光照的影响，可以创建颜色暗淡，不光亮的物体
@@ -48,8 +48,7 @@
 
 `Texture( image, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding )`
 
-- Image：这是一个图片类型，基本上它有ImageUtils来加载，如下代码
-  `var image = THREE.ImageUtils.loadTexture(url);` url 是一个图片地址, 这不地址必须是 `http://xxx/imgName.jpg` 这样的。
+- Image：这是一个图片类型，基本上它有ImageUtils来加载，如下代码 `var image = THREE.ImageUtils.loadTexture(url);` url 是一个图片地址, 这不地址必须是 `http://xxx/imgName.jpg` 这样的。
 - Mapping：是一个THREE.UVMapping()类型，它表示的是纹理坐标。
 - wrapS：表示x轴的纹理的方式，
 - wrapT：表示y轴的纹理回环方式。
@@ -57,8 +56,7 @@
 - type：表示存储纹理的内存的每一个字节的格式，是有符号，还是没有符号，是整形，还是浮点型。不过这里默认是无符号型（THREE.UnsignedByteType）。
 - anisotropy：各向异性过滤。使用各向异性过滤能够使纹理的效果更好，但是会消耗更多的内存、CPU、GPU时间。
 
-
-------
+--------------------------------------------------------------------------------
 
 本文部分内容参照及引用：
 

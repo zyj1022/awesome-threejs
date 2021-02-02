@@ -1,6 +1,6 @@
 # Hellow Three.js 之 运动物体的性能监测
 
-> [Demo查看](../demo/hello-threejs/hello-stats.html)
+> [Demo查看](http://codeffe.com/demo/hello-threejs/hello-stats.html)
 
 ## 基础知识
 
@@ -18,8 +18,7 @@
 
 性能监视器的截图如下所示:
 
-![fps](./images/stats-fps.png)
-![fps](./images/stats-ms.png)
+![fps](./images/stats-fps.png) ![fps](./images/stats-ms.png)
 
 - FPS表示：上一秒的帧数，这个值越大越好，一般都为60左右。点击此视图，就会变成下面的另一个视图。
 - MS表示：渲染一帧需要的毫秒数，这个数字是越小越好。再次点击又可以回到FPS视图中。
@@ -33,13 +32,11 @@ var stats = new Stats();
 stats.setMode(1); // 0: fps, 1: ms
 stats.domElement.style.position = 'absolute';
 document.body.appendChild( stats.domElement );
-
 ```
 
 调用stats.update()函数来统计时间和帧数 `stats.update();` 到 `renderer` 执行动画到时候即可。
 
-
-------
+--------------------------------------------------------------------------------
 
 本文部分内容参照及引用：
 

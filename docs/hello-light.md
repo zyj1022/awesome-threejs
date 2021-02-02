@@ -1,12 +1,10 @@
 # Hellow Three.js 之 光影之谜
 
-> [Demo查看](../demo/hello-threejs/hello-light.html)
-
+> [Demo查看](http://codeffe.com/demo/hello-threejs/hello-light.html)
 
 ## 基础知识
 
-常识，发光到物体即光源，有光，就有影。要想体现物体的3D真实性，光影就是很重要的效果。
-在threejs的世界里，也为光源提供了很多选择。
+常识，发光到物体即光源，有光，就有影。要想体现物体的3D真实性，光影就是很重要的效果。 在threejs的世界里，也为光源提供了很多选择。
 
 ### Light 光源基类
 
@@ -14,24 +12,23 @@ Light 是 Threejs 里所有光源的基类
 
 `Light( color : Integer, intensity : float )`
 
-- color — 光源颜色的RGB数值, 接受一个16进制的颜色值 如: `0xffffff` 表示白色
-- intensity — 光源强度的数值
+- color -- 光源颜色的RGB数值, 接受一个16进制的颜色值 如: `0xffffff` 表示白色
+- intensity -- 光源强度的数值
 
 ### 各种派生类
 
 基础光源：
 
 - AmbientLight 环境光 - 它的颜色会添加到整个场景和所有对象的当前颜色上
-- DirectionalLight 平行光 — 例如：太阳光
-- PointLight 点光源 — 空间中的一点，朝所有的方向发射光线
+- DirectionalLight 平行光 -- 例如：太阳光
+- PointLight 点光源 -- 空间中的一点，朝所有的方向发射光线
 - SpotLight 聚光源 - 聚光灯是由点光源发出，这种类型的光也可以产生投影，有聚光的效果
 
 特殊光源：
 
 - HemisphereLight 半球光 - 可以为室内场景创建更加自然的光照效果，模拟反光面和光线微弱的天气
 - RectAreaLight 矩形区域光源 - 这种光从一个矩形面均匀地发射，可以用来模拟明亮的窗户或者带状的照明；可以产生投影
-- 
-
+-
 
 #### 1、AmbientLight 环境光
 
@@ -41,7 +38,7 @@ Light 是 Threejs 里所有光源的基类
 
 `AmbientLight( color, intensity )`
 
-- color — 光源颜色的RGB数值。
+- color -- 光源颜色的RGB数值。
 - intensity -- 光源强度的数值。
 
 ```
@@ -51,8 +48,7 @@ scene.add( amblight );
 
 #### 2、DirectionalLight 平行光
 
-从一个特定的方向，而不是从一个特定的位置。这个光看起来就像光源位于无限远处，因此它产生的光线都是平行的。
-比如太阳，因为太阳很遥远，看起来所有的阳光照射到物体上都几乎来自同一个角度。
+从一个特定的方向，而不是从一个特定的位置。这个光看起来就像光源位于无限远处，因此它产生的光线都是平行的。 比如太阳，因为太阳很遥远，看起来所有的阳光照射到物体上都几乎来自同一个角度。
 
 ![AmbientLight](./images/light2.png)
 
@@ -75,8 +71,8 @@ scene.add( directionalLight );
 
 `PointLight( color, intensity, distance, decay )`
 
-- color — 颜色的RBG数值。
-- intensity — 光强的数值。
+- color -- 颜色的RBG数值。
+- intensity -- 光强的数值。
 - distance -- 光强为0处到光源的距离，0表示无穷大。
 - decay -- 沿着光照距离的衰退量。
 
@@ -94,8 +90,8 @@ scene.add( light );
 
 `SpotLight( color, intensity, distance, angle, penumbra, decay )`
 
-- color — 颜色的RBG数值。
-- intensity — 光强的数值。
+- color -- 颜色的RBG数值。
+- intensity -- 光强的数值。
 - distance -- 光强为0处到光源的距离，0表示无穷大。
 - angle -- 光线散射角度，最大为Math.PI/2。
 - penumbra -- 聚光锥的半影衰减百分比。在0和1之间的值。默认为0。
@@ -126,7 +122,7 @@ scene.add( spotLight );
 
 走夜路，打手电，通过光我们能分辨路上的石头、树枝、坑洞等。
 
--------
+--------------------------------------------------------------------------------
 
 本文部分内容参照及引用：
 

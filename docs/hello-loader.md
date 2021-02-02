@@ -1,6 +1,6 @@
 # Hellow Three.js 之 加载外部3D模型
 
-> [Demo查看](../demo/hello-threejs/hello-loader.html)
+> [Demo查看](http://codeffe.com/demo/hello-threejs/hello-loader.html)
 
 ![teapot](./images/teapot.png)
 
@@ -10,18 +10,16 @@
 
 ## 支持的格式类型
 
-`*.obj` 是最常用的模型格式，
-导入带 `*.mtl` 材质的` *.obj` 文件需要 `MTLLoader.js` 以及 `OBJMTLLoader.js`。
-另有 `PLYLoader.js`、`STLLoader.js` 等分别对应不同格式的加载器，可以根据模型格式自行选择。
+`*.obj` 是最常用的模型格式， 导入带 `*.mtl` 材质的`*.obj` 文件需要 `MTLLoader.js` 以及 `OBJMTLLoader.js`。 另有 `PLYLoader.js`、`STLLoader.js` 等分别对应不同格式的加载器，可以根据模型格式自行选择。
 
 目前，支持的模型格式有：
 
-- `*.obj` — 需要 `OBJLoader.js`；
-- `*.obj`, `*.mtl` — 需要 `MTLLoader.js` 以及 `OBJMTLLoader.js`
+- `*.obj` -- 需要 `OBJLoader.js`；
+- `*.obj`, `*.mtl` -- 需要 `MTLLoader.js` 以及 `OBJMTLLoader.js`
 - `*.dae`
 - `*.ctm`
-- `*.ply` — 需要 `PLYLoader.js`
-- `*.stl` — 需要 `STLLoader.js`
+- `*.ply` -- 需要 `PLYLoader.js`
+- `*.stl` -- 需要 `STLLoader.js`
 - `*.wrl`
 - `*.vtk` - 需要 `VTKLoader.js`
 
@@ -34,19 +32,14 @@ var objloader = new THREE.ObjectLoader(); // 导入json格式
 var OBJloader = new THREE.OBJLoader(); // 可导入 .obj格式
 
 …… 其他格式类似
-
 ```
 
 `loader` 导入模型的时候，接受两个参数:
 
- - 第一个表示模型路径
- - 第二个表示完成导入后的回调函数
- -
-一般我们需要在这个回调函数中将导入的模型添加到场景中。
+- 第一个表示模型路径
+- 第二个表示完成导入后的回调函数 - 一般我们需要在这个回调函数中将导入的模型添加到场景中。
 
 ### 无材质的模型
-
-
 
 **json 格式文件加载**
 
@@ -55,11 +48,11 @@ var OBJloader = new THREE.OBJLoader(); // 可导入 .obj格式
 ```
 var objloader = new THREE.ObjectLoader();
 objloader.load( "./demo/models/teapot.json", function( group ) {
-	mesh = group.children[0];
-	mesh.material = material;
-	mesh.scale.set(4,4,4);
-	mesh.position.y = -30;
-	scene.add( mesh );
+    mesh = group.children[0];
+    mesh.material = material;
+    mesh.scale.set(4,4,4);
+    mesh.position.y = -30;
+    scene.add( mesh );
 });
 ```
 
@@ -109,8 +102,7 @@ mtlLoader.load('./demo/models/teapot.mtl', function(materials) {
 });
 ```
 
-
-------
+--------------------------------------------------------------------------------
 
 本文部分内容参照及引用：
 

@@ -1,7 +1,6 @@
 # Hellow Three.js 之 有趣的着色器
 
-> [Demo查看](../demo/hello-threejs/hello-shader-pro.html)
-
+> [Demo查看](http://codeffe.com/demo/hello-threejs/hello-shader-pro.html)
 
 ![hello-shader-pro](./images/hello-shader-pro.png)
 
@@ -16,8 +15,7 @@ WebGL没有固定的渲染管线，你无法直接使用一个黑盒子式的着
 
 ### 顶点着色器
 
-顶点着色器中的“顶点”指的正是 `Mesh` 中的顶点，对于每个顶点调用一次。因此，如果场景中有一个正方体，那么对八个顶点将各自调用一次顶点着色器，可以修改顶点的位置或者颜色等信息，然后传入片元着色器。
-
+顶点着色器中的"顶点"指的正是 `Mesh` 中的顶点，对于每个顶点调用一次。因此，如果场景中有一个正方体，那么对八个顶点将各自调用一次顶点着色器，可以修改顶点的位置或者颜色等信息，然后传入片元着色器。
 
 ### 片元着色器
 
@@ -46,6 +44,7 @@ void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 ```
+
 如上代码：
 
 - 从 `main()` 函数开始
@@ -53,14 +52,13 @@ void main() {
 - `vec2` 二分量浮点向量
 - `vec4` 四分量浮点向量，四个变元分别响应红，绿，蓝和透明度通道
 
-
-|GLSL 类型	|JavaScript 类型	 |尺寸 |
-| :---- | -----:| ----:|
-| float  |  Number |  1 |
-|vec2	|THREE.Vector2	|2|
-|vec3	|THREE.Vector3	|3|
-|vec3	|THREE.Color	  |3|
-|vec4	|THREE.Vector4	|4|
+GLSL 类型 | JavaScript 类型 | 尺寸
+:------ | ------------: | -:
+float   |        Number |  1
+vec2    | THREE.Vector2 |  2
+vec3    | THREE.Vector3 |  3
+vec3    |   THREE.Color |  3
+vec4    | THREE.Vector4 |  4
 
 `varing` 是 WebGL定义限定符（Qualifier）用于数据类型（Type）之前，表明该变量的性质。
 
@@ -82,8 +80,8 @@ void main() {
     // 用 u_time 加上一个 sin 函数，来展示图中蓝色的动态变化。
     gl_FragColor = vec4(vUv.x, vUv.y, abs(sin(u_time)), 1.0);
 }
-
 ```
+
 实际操作中的 uniform 。在上面的代码中我们使用 u_time 加上一个 sin 函数，来展示图中蓝色的动态变化。
 
 GLSL 还有更多惊喜。GPU 的硬件加速支持我们使用角度，三角函数和指数函数。这里有一些这些函数的介绍：`sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()`, `pow()`, `exp()`, `log()`, `sqrt()`, `abs()`, `sign()`, `floor()`, `ceil()`, `fract()`, `mod()`, `min()`, `max()` 和 `clamp()`。
@@ -102,22 +100,20 @@ uniform vec2 u_mouse;      // 鼠标位置（在屏幕上哪个像素）
 uniform float u_time;     // 时间（加载后的秒数）
 ```
 
-这里查看 [demo](../demo/hello-threejs/hello-shader-1.html)
+这里查看 [demo](http://codeffe.com/demo/hello-threejs/hello-shader-1.html)
 
-最后可能也是最重要的细节是，GLSL 语言规范并不保证变量会被自动转换类别。这句话是什么意思呢？显卡的硬件制造商各有不同的显卡加速方式，但是却被要求有最精简的语言规范。因而，自动强制类型转换并没有包括在其中。在我们的“hello world!”例子中，vec4 精确到单精度浮点，所以应被赋予 float 格式，最好养成在 float 型数值里加一个 .0 的好习惯。比如 `1` 要写成 `1.0`, 同样 `0` 也要写成 `0.0`。
+最后可能也是最重要的细节是，GLSL 语言规范并不保证变量会被自动转换类别。这句话是什么意思呢？显卡的硬件制造商各有不同的显卡加速方式，但是却被要求有最精简的语言规范。因而，自动强制类型转换并没有包括在其中。在我们的"hello world!"例子中，vec4 精确到单精度浮点，所以应被赋予 float 格式，最好养成在 float 型数值里加一个 .0 的好习惯。比如 `1` 要写成 `1.0`, 同样 `0` 也要写成 `0.0`。
 
-
-------
+--------------------------------------------------------------------------------
 
 本文部分内容参照及引用：
 
 > [着色器-上](http://www.cnblogs.com/yiyezhai/archive/2013/01/21/2864358.html)-原文-[An Introduction to Shaders - Part 1](https://aerotwist.com/tutorials/an-introduction-to-shaders-part-1/)
->
+
 > [着色器-下](http://www.cnblogs.com/yiyezhai/archive/2013/01/22/2865249.html)-原文-[An Introduction to Shaders - Part 2](https://aerotwist.com/tutorials/an-introduction-to-shaders-part-2/)
->
+
 > [Three.js入门指南](http://www.ituring.com.cn/book/1272)
->
+
 > [Thebookofshaders](https://thebookofshaders.com/01/?lan=ch)
->
+
 > [如何从shaderToy上扒代码](https://zhuanlan.zhihu.com/p/34044609)
->
