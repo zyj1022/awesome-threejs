@@ -110,6 +110,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 
 ### 在线DEMO
 
+- [三种方法创建3D粒子效果](https://varun.ca/three-js-particles)
 - [three-seed](https://github.com/edwinwebb/three-seed/) - three.js starter project with ES6 and Webpack
 - [The Aviator](https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/) - the-aviator-animating-basic-3d-scene-threejs
 - [Infinite Tubes](https://tympanus.net/codrops/2017/05/09/infinite-tubes-with-three-js/)
