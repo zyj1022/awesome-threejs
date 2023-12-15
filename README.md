@@ -107,6 +107,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 - [marpi.pl](https://demo.marpi.pl) - 很多牛X的Demo
 - [Altered Qualia](http://alteredqualia.com/) - 也是很棒的Demo
 - [CESIUM 3D 地球](http://cesiumjs.org/index.html)
+- [minecraft-threejs-clone](https://dgreenheck.github.io/minecraft-threejs-clone/)-我的世界threejs版，还有另一个 threejs-procedural-planets
 
 ### 在线DEMO
 
