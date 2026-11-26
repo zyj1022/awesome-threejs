@@ -128,6 +128,7 @@ three.js是以webgl为基础的库，封装了一些3D渲染需求中重要的�
 - [voxelpainter](https://threejs.org/examples/webgl_interactive_voxelpainter.html)
 - [tunnel-effect](http://learningthreejs.com/blog/2012/01/11/tunnel-effect/)
 - [Altered earth](http://alteredqualia.com/xg/examples/earth_bathymetry.html)
+- [StagePeek](https://stagepeek.live/zh-cn/) - 基于 Three.js / WebGL 的演唱会 3D 座位视角模拟器，覆盖全球 201 座体育馆/巨蛋，免登录即可模拟 1x–10x 手机变焦视角
 
 ## 相关书籍资料
 
